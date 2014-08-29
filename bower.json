@@ -1,0 +1,8 @@
+{
+  "name": "bower-sigma.js",
+  "version": "1.0",
+  "main": [
+    "./sigma.min.js",
+    "./plugins/sigma.renderers.customShapes.min.js"
+  ]
+}
