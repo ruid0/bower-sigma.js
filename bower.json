@@ -4,5 +4,9 @@
   "main": [
     "./sigma.min.js",
     "./plugins/sigma.renderers.customShapes.min.js"
+  ],
+  "ignore": [
+    ".jshintrc",
+    "**/*.txt"
   ]
 }
