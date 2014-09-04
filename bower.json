@@ -3,7 +3,6 @@
   "version": "1.1",
   "main": [
     "./sigma.min.js",
-    "./plugins/sigma.renderers.customShapes.min.js",
     "./plugins/sigma.plugins.customEdges.js",
     "./plugins/sigma.plugin.customedges.js",
     "./plugins/sigma.renderers.customShapes.min.js",
