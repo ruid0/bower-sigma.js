@@ -51,8 +51,8 @@
     sigma.classes.dispatcher.extend(this);
 
     sigma.utils.doubleClick(_target, 'click', _doubleClickHandler);
-    _target.addEventListener('DOMMouseScroll', _wheelHandler, false);
-    _target.addEventListener('mousewheel', _wheelHandler, false);
+    document.addEventListener('DOMMouseScroll', _wheelHandler, false);
+    document.addEventListener('mousewheel', _wheelHandler, false);
     _target.addEventListener('mousemove', _moveHandler, false);
     _target.addEventListener('mousedown', _downHandler, false);
     _target.addEventListener('click', _clickHandler, false);
