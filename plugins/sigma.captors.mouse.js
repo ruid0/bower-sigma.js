@@ -19,32 +19,32 @@
    */
   sigma.captors.mouse = function(target, camera, settings) {
     var _self = this,
-        _target = target,
-        _camera = camera,
-        _settings = settings,
+      _target = target,
+      _camera = camera,
+      _settings = settings,
 
-        // CAMERA MANAGEMENT:
-        // ******************
-        // The camera position when the user starts dragging:
-        _startCameraX,
-        _startCameraY,
-        _startCameraAngle,
+    // CAMERA MANAGEMENT:
+    // ******************
+    // The camera position when the user starts dragging:
+      _startCameraX,
+      _startCameraY,
+      _startCameraAngle,
 
-        // The latest stage position:
-        _lastCameraX,
-        _lastCameraY,
-        _lastCameraAngle,
-        _lastCameraRatio,
+    // The latest stage position:
+      _lastCameraX,
+      _lastCameraY,
+      _lastCameraAngle,
+      _lastCameraRatio,
 
-        // MOUSE MANAGEMENT:
-        // *****************
-        // The mouse position when the user starts dragging:
-        _startMouseX,
-        _startMouseY,
+    // MOUSE MANAGEMENT:
+    // *****************
+    // The mouse position when the user starts dragging:
+      _startMouseX,
+      _startMouseY,
 
-        _isMouseDown,
-        _isMoving,
-        _movingTimeoutId;
+      _isMouseDown,
+      _isMoving,
+      _movingTimeoutId;
 
     _self.rejectMouseMove = false;
 
@@ -90,8 +90,8 @@
      */
     function _moveHandler(e) {
       var x,
-          y,
-          pos;
+        y,
+        pos;
 
       // Dispatch event:
       if (_settings('mouseEnabled'))
@@ -114,8 +114,8 @@
 
         _camera.isMoving = true;
         pos = _camera.cameraPosition(
-          sigma.utils.getX(e) - _startMouseX,
-          sigma.utils.getY(e) - _startMouseY,
+            sigma.utils.getX(e) - _startMouseX,
+            sigma.utils.getY(e) - _startMouseY,
           true
         );
         x = _startCameraX - pos.x;
@@ -126,7 +126,7 @@
         if ( bound.maxX < x ) x = bound.maxX;
         if ( bound.minY > y ) y = bound.minY;
         if ( bound.maxY < y ) y = bound.maxY;
-        
+
         if (x !== _camera.x || y !== _camera.y) {
           _lastCameraX = _camera.x;
           _lastCameraY = _camera.y;
@@ -163,7 +163,7 @@
         _camera.isMoving = false;
 
         var x = sigma.utils.getX(e),
-            y = sigma.utils.getY(e);
+          y = sigma.utils.getY(e);
 
         if (_isMoving) {
           sigma.misc.animation.killAll(_camera);
@@ -183,7 +183,7 @@
         } else if (
           _startMouseX !== x ||
           _startMouseY !== y
-        )
+          )
           _camera.goTo({
             x: _camera.x,
             y: _camera.y
@@ -266,9 +266,9 @@
      */
     function _doubleClickHandler(e) {
       var pos,
-          count,
-          ratio,
-          newRatio;
+        count,
+        ratio,
+        newRatio;
 
       if (_settings('mouseEnabled')) {
         ratio = 1 / _settings('doubleClickZoomingRatio');
@@ -278,7 +278,7 @@
           _settings('zoomMin'),
           Math.min(
             _settings('zoomMax'),
-            _camera.ratio * ratio
+              _camera.ratio * ratio
           )
         );
         ratio = newRatio / _camera.ratio;
@@ -293,8 +293,8 @@
           count = sigma.misc.animation.killAll(_camera);
 
           pos = _camera.cameraPosition(
-            sigma.utils.getX(e) - e.target.width / 2,
-            sigma.utils.getY(e) - e.target.height / 2,
+              sigma.utils.getX(e) - e.target.width / 2,
+              sigma.utils.getY(e) - e.target.height / 2,
             true
           );
 
@@ -330,9 +330,9 @@
      */
     function _wheelHandler(e) {
       var pos,
-          count,
-          ratio,
-          newRatio;
+        count,
+        ratio,
+        newRatio;
 
       if (_settings('mouseEnabled')) {
         ratio = sigma.utils.getDelta(e) > 0 ?
@@ -344,7 +344,7 @@
           _settings('zoomMin'),
           Math.min(
             _settings('zoomMax'),
-            _camera.ratio * ratio
+              _camera.ratio * ratio
           )
         );
         ratio = newRatio / _camera.ratio;
@@ -354,18 +354,18 @@
           count = sigma.misc.animation.killAll(_camera);
 
           pos = _camera.cameraPosition(
-            sigma.utils.getX(e) - e.target.width / 2,
-            sigma.utils.getY(e) - e.target.height / 2,
+              sigma.utils.getX(e) - e.target.width / 2,
+              sigma.utils.getY(e) - e.target.height / 2,
             true
           );
 
-            var x = pos.x * (1 - ratio) + _camera.x,
-                y = pos.y * (1 - ratio) + _camera.y;
+          var x = pos.x * (1 - ratio) + _camera.x,
+            y = pos.y * (1 - ratio) + _camera.y;
           var bound = sigma.utils.getBoundaries(_camera.graph, _camera.readPrefix);
-          if ( bound.minX > x ) x = bound.minX;
-          if ( bound.maxX < x ) x = bound.maxX;
-          if ( bound.minY > y ) y = bound.minY;
-          if ( bound.maxY < y ) y = bound.maxY;
+          if (bound.minX > x) x = bound.minX;
+          if (bound.maxX < x) x = bound.maxX;
+          if (bound.minY > y) y = bound.minY;
+          if (bound.maxY < y) y = bound.maxY;
           sigma.misc.animation.camera(
             _camera,
             {
@@ -378,6 +378,12 @@
               duration: _settings('mouseZoomDuration')
             }
           );
+          sigma.zoomObj = {
+            x: Math.ceil(x),
+            y: Math.ceil(y),
+            ratio: Math.ceil(newRatio)
+          };
+
         }
 
         if (e.preventDefault)
