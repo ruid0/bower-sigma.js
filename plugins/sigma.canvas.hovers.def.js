@@ -66,25 +66,25 @@
       context.shadowOffsetX = 0;
       context.shadowOffsetY = 0;
       context.shadowBlur = 0;
-    }
+    }*/
 
     // Node border:
-    if (settings('borderSize') > 0) {
-      context.beginPath();
-      context.fillStyle = settings('nodeBorderColor') === 'node' ?
-        (node.color || settings('defaultNodeColor')) :
-        settings('defaultNodeBorderColor');
-      context.arc(
-        node[prefix + 'x'],
-        node[prefix + 'y'],
-        size + settings('borderSize'),
-        0,
-        Math.PI * 2,
-        true
-      );
-      context.closePath();
-      context.fill();
-    }*/
+//    if (settings('borderSize') > 0) {
+//      context.beginPath();
+//      context.fillStyle = settings('nodeBorderColor') === 'node' ?
+//        (node.color || settings('defaultNodeColor')) :
+//        settings('defaultNodeBorderColor');
+//      context.arc(
+//        node[prefix + 'x'],
+//        node[prefix + 'y'],
+//        size + settings('borderSize'),
+//        0,
+//        Math.PI * 2,
+//        true
+//      );
+//      context.closePath();
+//      context.fill();
+//    }
     if ( node['size'] === 0 ) {
       return false;
     }
@@ -94,14 +94,14 @@
         //context.strokeStyle = "#007c9e"; //node.color;//'rgb(' + node.color + ')';
         context.shadowOffsetX = 0;
         context.shadowOffsetY = 0;
-        context.shadowBlur = 5;
-        context.shadowColor = 'rgba(0,172,219,1)';
-        context.fillStyle = "rgba(0,172,219, " + alpha + ")";//node.color;
+        context.shadowBlur = 1;
+//        context.shadowColor = 'rgba(0,172,219,1)';
+        context.fillStyle = "rgba(103, 111, 125, " + alpha + ")";//node.color;
 
         context.arc(
               node[prefix + 'x'],
               node[prefix + 'y'],
-                node[prefix + 'size'] + 3,
+                node[prefix + 'size'],
                 0,
                 Math.PI * 2,
                 true
@@ -161,7 +161,8 @@
         node.hover.animationFrame = window.webkitRequestAnimationFrame(node.hoverAnim);
         drawHover(node.hover.alpha);
       }
-    }
+    };
+
     node.hoverAnim();
   };
 }).call(this);

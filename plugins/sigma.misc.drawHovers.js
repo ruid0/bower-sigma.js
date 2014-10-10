@@ -15,6 +15,7 @@
    * It has to be called in the scope of the related renderer.
    */
   sigma.misc.drawHovers = function(prefix) {
+
     var self = this,
         hoveredNodes = {};
 
@@ -23,44 +24,52 @@
           l = n.length,
           i;
 
+
+
       for (i = 0; i < l; i++) {
-        //clearInterval(n[i].hoverInterval);
-        //clearInterval(n[i].hoverInterval);
+
         n[i].hover = n[i].hover || {};
         n[i].hover = _.extend(n[i].hover,
         {
           sign: 1,
           diff: 0.03
         });
-        //console.debug('overNodes: ', n[i].hover.alpha);
-        n[i].hover.alpha = n[i].hover.alpha || 0.1;
 
+        n[i].hover.alpha = n[i].hover.alpha || 0.1;
 
         hoveredNodes[n[i].id] = n[i];
       }
-
       draw();
     });
     this.bind('outNodes', function(event) {
       var n = event.data.nodes,
-          l = n.length,
-          i;
+        l = n.length,
+        i;
 
       for (i = 0; i < l; i++) {
-        //clearInterval(n[i].hoverInterval);
-        //clearInterval(n[i].hoverInterval);
+
         n[i].hover = n[i].hover || {};
         n[i].hover = _.extend(n[i].hover ||{},
           {
             sign: -1,
             diff: 0.03
           });
-        //console.debug('outNodes: ', n[i].hover.alpha);
         n[i].hover.alpha = n[i].hover.alpha || 0.49;
 
-        // n[i].hover.alpha = Boolean(n[i].hover.alpha)?n[i].hover.alpha:0.5;
         delete hoveredNodes[n[i].id];
       }
+
+      event.target.graph.nodes().filter(function (node) {
+        if (node.type === 'SelectedNode') {
+          node.hover = _.extend(node.hover || {},
+            {
+              sign: 1,
+              diff: 0.03
+            });
+          draw();
+          return;
+        }
+      });
 
       draw();
     });
