@@ -8,7 +8,6 @@
     "./plugins/sigma.misc.drawGrid.js",
     "./plugins/sigma.misc.drawHovers.js",
     "./plugins/sigma.renderers.canvas.js",
-    "./plugins/sigma.captors.mouse.js",
     "./plugins/sigma.canvas.hovers.def.js"
   ],
   "ignore": [
