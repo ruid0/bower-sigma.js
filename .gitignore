@@ -18,3 +18,4 @@ angular.xcodeproj
 libpeerconnection.log
 npm-debug.log
 /tmp/
+atlassian-ide-plugin.xml
