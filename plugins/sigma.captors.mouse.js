@@ -53,11 +53,7 @@
     sigma.utils.doubleClick(_target, 'click', _doubleClickHandler);
     document.getElementsByClassName('sigma-mouse')[0].addEventListener('DOMMouseScroll', _wheelHandler, false);
     document.getElementsByClassName('sigma-mouse')[0].addEventListener('mousewheel', _wheelHandler, false);
-    _target.addEventListener('mousemove', _moveHandler, false);
-    _target.addEventListener('mousedown', _downHandler, false);
     _target.addEventListener('click', _clickHandler, false);
-    _target.addEventListener('mouseout', _outHandler, false);
-    document.addEventListener('mouseup', _upHandler, false);
 
 
 
