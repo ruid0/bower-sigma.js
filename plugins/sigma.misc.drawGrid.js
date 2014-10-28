@@ -1,5 +1,5 @@
 ;
-(function (undefined) {
+(function(undefined) {
   'use strict';
 
   if (typeof sigma === 'undefined')
@@ -8,9 +8,9 @@
   // Initialize packages:
   sigma.utils.pkg('sigma.misc');
 
-  sigma.misc.drawGrid = function (prefix) {
+  sigma.misc.drawGrid = function(prefix) {
     var self = this;
-    this.bind('render', function (event) {
+    this.bind('render', function(event) {
       calcScale();
       draw();
     });
@@ -34,8 +34,8 @@
         (
           settings('rescaleIgnoreSize') ?
             0 :
-            (settings('maxNodeSize') || sizeMax) / scale
-          ) +
+          (settings('maxNodeSize') || sizeMax) / scale
+        ) +
         (settings('sideMargin') || 0);
 
 
@@ -49,6 +49,31 @@
       };
     }
 
+    function drawDottedLine(x1, y1, x2, y2, dotCount, dotColor, ctx) {
+      var dx = x2 - x1,
+        dy = y2 - y1,
+        spaceX = dx / (dotCount - 1),
+        spaceY = dy / (dotCount - 1),
+        newX = x1,
+        newY = y1,
+        i = 0;
+
+      for (; i < dotCount; i++) {
+        drawDot(newX, newY, dotColor, ctx);
+        newX += spaceX;
+        newY += spaceY;
+      }
+    }
+
+    function drawDot(x, y, dotColor, ctx) {
+      ctx.beginPath();
+      ctx.moveTo(x + 5, y);
+      ctx.lineTo(x + 5, y + 20);
+      ctx.strokeStyle = dotColor;
+      ctx.stroke();
+      ctx.restore();
+    }
+
     function draw() {
       var i,
         ctx = self.contexts.grid,
@@ -56,17 +81,11 @@
       ctx.save();
       ctx.beginPath();
       for (i = -50; i < 50; i++) {
-        var x =
-          (
-            (i - (self.scaleBounds.maxX + self.scaleBounds.minX) / 2) * self.scale - cam.x
-            ) / cam.ratio + self.width / 2;
-        ctx.moveTo(x, 0);
-        ctx.lineTo(x, self.height);
-      }
+        var x = ( (i - (self.scaleBounds.maxX + self.scaleBounds.minX) / 4) * self.scale - cam.x ) /
+          cam.ratio + self.width / 2;
 
-      ctx.strokeStyle = '#d5d5d5';
-      ctx.stroke();
-      ctx.restore();
+        drawDottedLine(x, 0, x, self.height, 10, 'rgba(255, 255, 255, 0.3)', ctx);
+      }
     }
   };
 }).call(this);
