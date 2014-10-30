@@ -46,13 +46,11 @@
       _isMoving,
       _movingTimeoutId;
 
-    _self.rejectMouseMove = false;
-
     sigma.classes.dispatcher.extend(this);
 
     sigma.utils.doubleClick(_target, 'click', _doubleClickHandler);
-    document.getElementsByClassName('sigma-mouse')[0].addEventListener('DOMMouseScroll', _wheelHandler, false);
-    document.getElementsByClassName('sigma-mouse')[0].addEventListener('mousewheel', _wheelHandler, false);
+    _target.addEventListener('DOMMouseScroll', _wheelHandler, false);
+    _target.addEventListener('mousewheel', _wheelHandler, false);
     _target.addEventListener('mousemove', _moveHandler, false);
     _target.addEventListener('mousedown', _downHandler, false);
     _target.addEventListener('click', _clickHandler, false);
@@ -67,8 +65,8 @@
      */
     this.kill = function() {
       sigma.utils.unbindDoubleClick(_target, 'click');
-      document.getElementsByClassName('sigma-mouse')[0].removeEventListener('DOMMouseScroll', _wheelHandler);
-      document.getElementsByClassName('sigma-mouse')[0].removeEventListener('mousewheel', _wheelHandler);
+      _target.removeEventListener('DOMMouseScroll', _wheelHandler);
+      _target.removeEventListener('mousewheel', _wheelHandler);
       _target.removeEventListener('mousemove', _moveHandler);
       _target.removeEventListener('mousedown', _downHandler);
       _target.removeEventListener('click', _clickHandler);
@@ -97,10 +95,16 @@
       if (_settings('mouseEnabled'))
         _self.dispatchEvent('mousemove', {
           x: sigma.utils.getX(e) - e.target.width / 2,
-          y: sigma.utils.getY(e) - e.target.height / 2
+          y: sigma.utils.getY(e) - e.target.height / 2,
+          clientX: e.clientX,
+          clientY: e.clientY,
+          ctrlKey: e.ctrlKey,
+          metaKey: e.metaKey,
+          altKey: e.altKey,
+          shiftKey: e.shiftKey
         });
 
-      if (_settings('mouseEnabled') && _isMouseDown ) {
+      if (_settings('mouseEnabled') && _isMouseDown) {
         _isMoving = true;
 
         if (_movingTimeoutId)
@@ -114,18 +118,13 @@
 
         _camera.isMoving = true;
         pos = _camera.cameraPosition(
-            sigma.utils.getX(e) - _startMouseX,
-            sigma.utils.getY(e) - _startMouseY,
+          sigma.utils.getX(e) - _startMouseX,
+          sigma.utils.getY(e) - _startMouseY,
           true
         );
+
         x = _startCameraX - pos.x;
         y = _startCameraY - pos.y;
-
-        var bound = sigma.utils.getBoundaries(_camera.graph, _camera.readPrefix);
-        if ( bound.minX > x ) x = bound.minX;
-        if ( bound.maxX < x ) x = bound.maxX;
-        if ( bound.minY > y ) y = bound.minY;
-        if ( bound.maxY < y ) y = bound.maxY;
 
         if (x !== _camera.x || y !== _camera.y) {
           _lastCameraX = _camera.x;
@@ -145,7 +144,6 @@
         e.stopPropagation();
         return false;
       }
-      _self.rejectMouseMove = false;
     }
 
     /**
@@ -171,9 +169,9 @@
             _camera,
             {
               x: _camera.x +
-                _settings('mouseInertiaRatio') * (_camera.x - _lastCameraX),
+              _settings('mouseInertiaRatio') * (_camera.x - _lastCameraX),
               y: _camera.y +
-                _settings('mouseInertiaRatio') * (_camera.y - _lastCameraY)
+              _settings('mouseInertiaRatio') * (_camera.y - _lastCameraY)
             },
             {
               easing: 'quadraticOut',
@@ -183,7 +181,7 @@
         } else if (
           _startMouseX !== x ||
           _startMouseY !== y
-          )
+        )
           _camera.goTo({
             x: _camera.x,
             y: _camera.y
@@ -191,7 +189,13 @@
 
         _self.dispatchEvent('mouseup', {
           x: x - e.target.width / 2,
-          y: y - e.target.height / 2
+          y: y - e.target.height / 2,
+          clientX: e.clientX,
+          clientY: e.clientY,
+          ctrlKey: e.ctrlKey,
+          metaKey: e.metaKey,
+          altKey: e.altKey,
+          shiftKey: e.shiftKey
         });
 
         // Update _isMoving flag:
@@ -207,8 +211,6 @@
      */
     function _downHandler(e) {
       if (_settings('mouseEnabled')) {
-        _isMouseDown = true;
-
         _startCameraX = _camera.x;
         _startCameraY = _camera.y;
 
@@ -218,10 +220,40 @@
         _startMouseX = sigma.utils.getX(e);
         _startMouseY = sigma.utils.getY(e);
 
-        _self.dispatchEvent('mouseup', {
-          x: _startMouseX - e.target.width / 2,
-          y: _startMouseY - e.target.height / 2
-        });
+        switch (e.which) {
+          case 2:
+            // Middle mouse button pressed
+            // Do nothing.
+            break;
+          case 3:
+            // Right mouse button pressed
+            _self.dispatchEvent('rightclick', {
+              x: _startMouseX - e.target.width / 2,
+              y: _startMouseY - e.target.height / 2,
+              clientX: e.clientX,
+              clientY: e.clientY,
+              ctrlKey: e.ctrlKey,
+              metaKey: e.metaKey,
+              altKey: e.altKey,
+              shiftKey: e.shiftKey
+            });
+            break;
+          // case 1:
+          default:
+            // Left mouse button pressed
+            _isMouseDown = true;
+
+            _self.dispatchEvent('mousedown', {
+              x: _startMouseX - e.target.width / 2,
+              y: _startMouseY - e.target.height / 2,
+              clientX: e.clientX,
+              clientY: e.clientY,
+              ctrlKey: e.ctrlKey,
+              metaKey: e.metaKey,
+              altKey: e.altKey,
+              shiftKey: e.shiftKey
+            });
+        }
       }
     }
 
@@ -246,7 +278,13 @@
       if (_settings('mouseEnabled'))
         _self.dispatchEvent('click', {
           x: sigma.utils.getX(e) - e.target.width / 2,
-          y: sigma.utils.getY(e) - e.target.height / 2
+          y: sigma.utils.getY(e) - e.target.height / 2,
+          clientX: e.clientX,
+          clientY: e.clientY,
+          ctrlKey: e.ctrlKey,
+          metaKey: e.metaKey,
+          altKey: e.altKey,
+          shiftKey: e.shiftKey
         });
 
       if (e.preventDefault)
@@ -266,50 +304,35 @@
      */
     function _doubleClickHandler(e) {
       var pos,
-        count,
         ratio,
-        newRatio;
+        animation;
 
       if (_settings('mouseEnabled')) {
         ratio = 1 / _settings('doubleClickZoomingRatio');
 
-        // Deal with min / max:
-        newRatio = Math.max(
-          _settings('zoomMin'),
-          Math.min(
-            _settings('zoomMax'),
-              _camera.ratio * ratio
-          )
-        );
-        ratio = newRatio / _camera.ratio;
-
         _self.dispatchEvent('doubleclick', {
           x: _startMouseX - e.target.width / 2,
-          y: _startMouseY - e.target.height / 2
+          y: _startMouseY - e.target.height / 2,
+          clientX: e.clientX,
+          clientY: e.clientY,
+          ctrlKey: e.ctrlKey,
+          metaKey: e.metaKey,
+          altKey: e.altKey,
+          shiftKey: e.shiftKey
         });
 
-        // Check that the new ratio is different from the initial one:
-        if (_settings('doubleClickEnabled') && (newRatio !== _camera.ratio)) {
-          count = sigma.misc.animation.killAll(_camera);
-
+        if (_settings('doubleClickEnabled')) {
           pos = _camera.cameraPosition(
-              sigma.utils.getX(e) - e.target.width / 2,
-              sigma.utils.getY(e) - e.target.height / 2,
+            sigma.utils.getX(e) - e.target.width / 2,
+            sigma.utils.getY(e) - e.target.height / 2,
             true
           );
 
-          sigma.misc.animation.camera(
-            _camera,
-            {
-              x: pos.x * (1 - ratio) + _camera.x,
-              y: pos.y * (1 - ratio) + _camera.y,
-              ratio: newRatio
-            },
-            {
-              easing: count ? 'quadraticOut' : 'quadraticInOut',
-              duration: _settings('doubleClickZoomDuration')
-            }
-          );
+          animation = {
+            duration: _settings('doubleClickZoomDuration')
+          };
+
+          sigma.utils.zoomTo(_camera, pos.x, pos.y, ratio, animation);
         }
 
         if (e.preventDefault)
@@ -330,61 +353,25 @@
      */
     function _wheelHandler(e) {
       var pos,
-        count,
         ratio,
-        newRatio;
+        animation;
 
       if (_settings('mouseEnabled')) {
         ratio = sigma.utils.getDelta(e) > 0 ?
-          1 / _settings('zoomingRatio') :
+        1 / _settings('zoomingRatio') :
           _settings('zoomingRatio');
 
-        // Deal with min / max:
-        newRatio = Math.max(
-          _settings('zoomMin'),
-          Math.min(
-            _settings('zoomMax'),
-              _camera.ratio * ratio
-          )
+        pos = _camera.cameraPosition(
+          sigma.utils.getX(e) - e.target.width / 2,
+          sigma.utils.getY(e) - e.target.height / 2,
+          true
         );
-        ratio = newRatio / _camera.ratio;
 
-        // Check that the new ratio is different from the initial one:
-        if (newRatio !== _camera.ratio) {
-          count = sigma.misc.animation.killAll(_camera);
+        animation = {
+          duration: _settings('mouseZoomDuration')
+        };
 
-          pos = _camera.cameraPosition(
-              sigma.utils.getX(e) - e.target.width / 2,
-              sigma.utils.getY(e) - e.target.height / 2,
-            true
-          );
-
-          var x = pos.x * (1 - ratio) + _camera.x,
-            y = pos.y * (1 - ratio) + _camera.y;
-          var bound = sigma.utils.getBoundaries(_camera.graph, _camera.readPrefix);
-          if (bound.minX > x) x = bound.minX;
-          if (bound.maxX < x) x = bound.maxX;
-          if (bound.minY > y) y = bound.minY;
-          if (bound.maxY < y) y = bound.maxY;
-          sigma.misc.animation.camera(
-            _camera,
-            {
-              x: x,
-              y: y,
-              ratio: newRatio
-            },
-            {
-              easing: count ? 'quadraticOut' : 'quadraticInOut',
-              duration: _settings('mouseZoomDuration')
-            }
-          );
-          sigma.zoomObj = {
-            x: Math.ceil(x),
-            y: Math.ceil(y),
-            ratio: Math.ceil(newRatio)
-          };
-
-        }
+        sigma.utils.zoomTo(_camera, pos.x, pos.y, ratio, animation);
 
         if (e.preventDefault)
           e.preventDefault();

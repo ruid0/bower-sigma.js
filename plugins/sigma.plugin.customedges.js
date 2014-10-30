@@ -1,20 +1,7 @@
-;
-(function () {
+;(function() {
   'use strict';
-
   sigma.utils.pkg('sigma.canvas.edges');
-
-  /**
-   * The default edge renderer. It renders the edge as a simple line.
-   *
-   * @param  {object}                   edge         The edge object.
-   * @param  {object}                   source node  The edge source node.
-   * @param  {object}                   target node  The edge target node.
-   * @param  {CanvasRenderingContext2D} context      The canvas context.
-   * @param  {configurable}             settings     The settings function.
-   */
-  sigma.canvas.edges.t = function (edge, source, target, context, settings) {
-
+  sigma.canvas.edges.t = function(edge, source, target, context, settings) {
     var color = edge.color,
       prefix = settings('prefix') || '',
       edgeColor = settings('edgeColor'),
@@ -35,46 +22,20 @@
       }
 
     context.strokeStyle = color;
-    context.lineWidth = 1.5;
+    context.lineWidth = edge[prefix + 'size'] || 1;
     context.beginPath();
-    var size = 0;
-
-    if (source.type === 'root') {
-      size = source[prefix + 'size'];
-    }
-
-    if (source[prefix + 'y'] === target[prefix + 'y']) {
-      context.moveTo(
-          source[prefix + 'x'] + 20,
-        source[prefix + 'y']
-      );
-    } else {
-
-      context.moveTo(
-        source[prefix + 'x'],
-          source[prefix + 'y'] - 20
-      );
-      context.lineTo(
-        source[prefix + 'x'],
-        target[prefix + 'y']
-      );
-    }
-
+    context.moveTo(
+      source[prefix + 'x'],
+      source[prefix + 'y']
+    );
     context.lineTo(
-      target[prefix + 'x'] - 20,
+      source[prefix + 'x'],
       target[prefix + 'y']
     );
-
+    context.lineTo(
+      target[prefix + 'x'],
+      target[prefix + 'y']
+    );
     context.stroke();
-
-
-    if (settings('drawEdgeLabels'))
-      sigma.canvas.labels.edges.t(
-        edge,
-        source,
-        target,
-        context,
-        settings
-      );
   };
 })();
