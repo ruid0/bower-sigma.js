@@ -38,7 +38,6 @@
         ) +
         (settings('sideMargin') || 0);
 
-
       maxX += margin;
       minX -= margin;
       scale = Math.min(w / Math.max(maxX - minX, 1));
@@ -68,7 +67,7 @@
     function drawDot(x, y, dotColor, ctx) {
       ctx.beginPath();
       ctx.moveTo(x + 5, y);
-      ctx.lineTo(x + 5, y + 20);
+      ctx.lineTo(x + 5, y + 10);
       ctx.strokeStyle = dotColor;
       ctx.stroke();
       ctx.restore();
@@ -84,7 +83,7 @@
         var x = ( (i - (self.scaleBounds.maxX + self.scaleBounds.minX) / 4) * self.scale - cam.x ) /
           cam.ratio + self.width / 2;
 
-        drawDottedLine(x, 0, x, self.height, 10, 'rgba(255, 255, 255, 0.3)', ctx);
+        drawDottedLine(x, 0, x, self.height, 20, 'rgba(255, 255, 255, 0.3)', ctx);
       }
     }
   };
