@@ -305,7 +305,7 @@
      */
     function _doubleClickHandler(e) {
       var pos,
-        ratio,
+        ratio = 1,
         animation;
 
       if (_settings('mouseEnabled')) {

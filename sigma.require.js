@@ -64,18 +64,18 @@
     // Local variables:
     // ****************
     var i,
-        l,
-        a,
-        c,
-        o,
-        id;
+      l,
+      a,
+      c,
+      o,
+      id;
 
     sigma.classes.dispatcher.extend(this);
 
     // Private attributes:
     // *******************
     var _self = this,
-        _conf = conf || {};
+      _conf = conf || {};
 
     // Little shortcut:
     // ****************
@@ -167,7 +167,7 @@
     // Add a custom handler, to redispatch events from renderers:
     this._handler = (function(e) {
       var k,
-          data = {};
+        data = {};
 
       for (k in e.data)
         data[k] = e.data[k];
@@ -218,7 +218,7 @@
    */
   sigma.prototype.addCamera = function(id) {
     var self = this,
-        camera;
+      camera;
 
     if (!arguments.length) {
       id = 0;
@@ -258,8 +258,8 @@
       throw 'sigma.killCamera: The camera is undefined.';
 
     var i,
-        l,
-        a = this.renderersPerCamera[v.id];
+      l,
+      a = this.renderersPerCamera[v.id];
 
     for (l = a.length, i = l - 1; i >= 0; i--)
       this.killRenderer(a[i]);
@@ -297,10 +297,10 @@
    */
   sigma.prototype.addRenderer = function(options) {
     var id,
-        fn,
-        camera,
-        renderer,
-        o = options || {};
+      fn,
+      camera,
+      renderer,
+      o = options || {};
 
     // Polymorphism:
     if (typeof o === 'string')
@@ -333,7 +333,7 @@
       (
         o.camera instanceof sigma.classes.camera ?
           o.camera :
-          this.cameras[o.camera] || this.addCamera(o.camera)
+        this.cameras[o.camera] || this.addCamera(o.camera)
       ) :
       this.addCamera();
 
@@ -393,7 +393,7 @@
       throw 'sigma.killRenderer: The renderer is undefined.';
 
     var a = this.renderersPerCamera[v.camera.id],
-        i = a.indexOf(v);
+      i = a.indexOf(v);
 
     if (i >= 0)
       a.splice(i, 1);
@@ -420,12 +420,12 @@
    */
   sigma.prototype.refresh = function() {
     var i,
-        l,
-        k,
-        a,
-        c,
-        bounds,
-        prefix = 0;
+      l,
+      k,
+      a,
+      c,
+      bounds,
+      prefix = 0;
 
     // Call each middleware:
     a = this.middlewares || [];
@@ -507,9 +507,9 @@
    */
   sigma.prototype.render = function() {
     var i,
-        l,
-        a,
-        prefix = 0;
+      l,
+      a,
+      prefix = 0;
 
     // Call each renderer:
     a = Object.keys(this.renderers);
@@ -542,9 +542,9 @@
    */
   sigma.prototype.renderCamera = function(camera, force) {
     var i,
-        l,
-        a,
-        self = this;
+      l,
+      a,
+      self = this;
 
     if (force) {
       a = this.renderersPerCamera[camera.id];
@@ -571,8 +571,8 @@
               if (this.settings('verbose'))
                 console.log(
                   'Warning: The renderer "' +
-                    a[i].id +
-                    '" crashed on ".render()"'
+                  a[i].id +
+                  '" crashed on ".render()"'
                 );
             }
           else
@@ -795,9 +795,9 @@
    */
   function _bind(events, handler) {
     var i,
-        i_end,
-        event,
-        eArray;
+      i_end,
+      event,
+      eArray;
 
     if (!arguments.length)
       return;
@@ -841,14 +841,14 @@
    */
   function _unbind(events, handler) {
     var i,
-        i_end,
-        j,
-        j_end,
-        a,
-        event,
-        eArray = Array.isArray(events) ?
-                   events :
-                   events.split(/ /);
+      i_end,
+      j,
+      j_end,
+      a,
+      event,
+      eArray = Array.isArray(events) ?
+        events :
+        events.split(/ /);
 
     if (!arguments.length)
       _handlers = Object.create(null);
@@ -882,14 +882,14 @@
    */
   function _dispatch(events, data) {
     var i,
-        j,
-        i_end,
-        j_end,
-        event,
-        eventName,
-        eArray = Array.isArray(events) ?
-                   events :
-                   events.split(/ /);
+      j,
+      i_end,
+      j_end,
+      event,
+      eventName,
+      eArray = Array.isArray(events) ?
+        events :
+        events.split(/ /);
 
     data = data === undefined ? {} : data;
 
@@ -918,12 +918,12 @@
    */
   function _executeFirstJob() {
     var i,
-        l,
-        test,
-        kill,
-        pushed = false,
-        time = __dateNow(),
-        job = _sortedByPriorityJobs.shift();
+      l,
+      test,
+      kill,
+      pushed = false,
+      time = __dateNow(),
+      job = _sortedByPriorityJobs.shift();
 
     // Execute the job and look at the result:
     test = job.job();
@@ -992,11 +992,11 @@
    */
   function _loop() {
     var k,
-        o,
-        l,
-        job,
-        time,
-        deadJob;
+      o,
+      l,
+      job,
+      time,
+      deadJob;
 
     // Deal with the newly added jobs (the _jobs object):
     for (k in _jobs) {
@@ -1015,9 +1015,9 @@
 
     // Deal with the running jobs (the _runningJobs object):
     while (
-      _sortedByPriorityJobs.length &&
-      __dateNow() - _lastFrameTime < _parameters.frameDuration
-    ) {
+    _sortedByPriorityJobs.length &&
+    __dateNow() - _lastFrameTime < _parameters.frameDuration
+      ) {
       deadJob = _executeFirstJob();
 
       // Deal with the case where the job has ended:
@@ -1130,8 +1130,8 @@
    */
   function _addJob(v1, v2) {
     var i,
-        l,
-        o;
+      l,
+      o;
 
     // Array of jobs:
     if (Array.isArray(v1)) {
@@ -1177,7 +1177,7 @@
         }
       }
 
-    // One job (string, *):
+      // One job (string, *):
     } else if (typeof v1 === 'string') {
       if (_hasJob(v1))
         throw new Error(
@@ -1197,7 +1197,7 @@
           job: v2
         };
 
-      // One job (string, object):
+        // One job (string, object):
       } else if (typeof v2 === 'object') {
         o = __extend(
           {
@@ -1212,7 +1212,7 @@
           v2
         );
 
-      // If none of those cases, throw an error:
+        // If none of those cases, throw an error:
       } else
         throw new Error('[conrad.addJob] Wrong arguments.');
 
@@ -1229,7 +1229,7 @@
         _loop();
       }
 
-    // If none of those cases, throw an error:
+      // If none of those cases, throw an error:
     } else
       throw new Error('[conrad.addJob] Wrong arguments.');
 
@@ -1246,11 +1246,11 @@
    */
   function _killJob(v1) {
     var i,
-        l,
-        k,
-        a,
-        job,
-        found = false;
+      l,
+      k,
+      a,
+      job,
+      found = false;
 
     // Array of job ids:
     if (Array.isArray(v1))
@@ -1291,7 +1291,7 @@
       if (!found)
         throw new Error('[conrad.killJob] Job "' + v1 + '" not found.');
 
-    // If none of those cases, throw an error:
+      // If none of those cases, throw an error:
     } else
       throw new Error('[conrad.killJob] Wrong arguments.');
 
@@ -1305,7 +1305,7 @@
    */
   function _killAll() {
     var k,
-        jobs = __extend(_jobs, _runningJobs, _waitingJobs);
+      jobs = __extend(_jobs, _runningJobs, _waitingJobs);
 
     // Take every jobs and push them into the _doneJobs object:
     if (_parameters.history)
@@ -1359,8 +1359,8 @@
       return _parameters[a1];
     else {
       o = (typeof a1 === 'object' && arguments.length === 1) ?
-        a1 || {} :
-        {};
+      a1 || {} :
+      {};
       if (typeof a1 === 'string')
         o[a1] = a2;
 
@@ -1421,12 +1421,12 @@
    */
   function _getStats(v1, v2) {
     var a,
-        k,
-        i,
-        l,
-        stats,
-        pattern,
-        isPatternString;
+      k,
+      i,
+      l,
+      stats,
+      pattern,
+      isPatternString;
 
     if (!arguments.length) {
       stats = [];
@@ -1537,9 +1537,9 @@
    */
   function __extend() {
     var i,
-        k,
-        res = {},
-        l = arguments.length;
+      k,
+      res = {},
+      l = arguments.length;
 
     for (i = l - 1; i >= 0; i--)
       for (k in arguments[i])
@@ -1585,7 +1585,7 @@
    */
   function __objectValues(o) {
     var k,
-        a = [];
+      a = [];
 
     for (k in o)
       a.push(o[k]);
@@ -1643,7 +1643,7 @@
 
 // Hardcoded export for the node.js version:
 var sigma = this.sigma,
-    conrad = this.conrad;
+  conrad = this.conrad;
 
 sigma.conrad = conrad;
 
@@ -1708,9 +1708,9 @@ if (typeof exports !== 'undefined') {
    */
   sigma.utils.extend = function() {
     var i,
-        k,
-        res = {},
-        l = arguments.length;
+      k,
+      res = {},
+      l = arguments.length;
 
     for (i = l - 1; i >= 0; i--)
       for (k in arguments[i])
@@ -1814,13 +1814,13 @@ if (typeof exports !== 'undefined') {
     }
 
     return (
-      result[0] * 256 * 256 +
-      result[1] * 256 +
-      result[2]
+    result[0] * 256 * 256 +
+    result[1] * 256 +
+    result[2]
     );
   };
 
-    /**
+  /**
    * Perform a zoom into a camera, with or without animation, to the
    * coordinates indicated using a specified ratio.
    *
@@ -1843,20 +1843,13 @@ if (typeof exports !== 'undefined') {
    */
   sigma.utils.zoomTo = function(camera, x, y, ratio, animation) {
     var settings = camera.settings,
-        count,
-        newRatio,
-        animationSettings,
-        coordinates;
+      count,
+      newRatio,
+      animationSettings,
+      coordinates;
 
     // Create the newRatio dealing with min / max:
-    newRatio = Math.max(
-      settings('zoomMin'),
-      Math.min(
-        settings('zoomMax'),
-        camera.ratio * ratio
-      )
-    );
-
+    newRatio = ratio;
     // Check that the new ratio is different from the initial one:
     if (newRatio !== camera.ratio) {
       // Create the coordinates variable:
@@ -1907,9 +1900,9 @@ if (typeof exports !== 'undefined') {
    */
   sigma.utils.getX = function(e) {
     return (
-      (e.offsetX !== undefined && e.offsetX) ||
-      (e.layerX !== undefined && e.layerX) ||
-      (e.clientX !== undefined && e.clientX)
+    (e.offsetX !== undefined && e.offsetX) ||
+    (e.layerX !== undefined && e.layerX) ||
+    (e.clientX !== undefined && e.clientX)
     );
   };
 
@@ -1921,9 +1914,9 @@ if (typeof exports !== 'undefined') {
    */
   sigma.utils.getY = function(e) {
     return (
-      (e.offsetY !== undefined && e.offsetY) ||
-      (e.layerY !== undefined && e.layerY) ||
-      (e.clientY !== undefined && e.clientY)
+    (e.offsetY !== undefined && e.offsetY) ||
+    (e.layerY !== undefined && e.layerY) ||
+    (e.clientY !== undefined && e.clientY)
     );
   };
 
@@ -1935,8 +1928,8 @@ if (typeof exports !== 'undefined') {
    */
   sigma.utils.getDelta = function(e) {
     return (
-      (e.wheelDelta !== undefined && e.wheelDelta) ||
-      (e.detail !== undefined && -e.detail)
+    (e.wheelDelta !== undefined && e.wheelDelta) ||
+    (e.detail !== undefined && -e.detail)
     );
   };
 
@@ -1948,7 +1941,7 @@ if (typeof exports !== 'undefined') {
    */
   sigma.utils.getOffset = function(dom) {
     var left = 0,
-        top = 0;
+      top = 0;
 
     while (dom) {
       top = top + parseInt(dom.offsetTop);
@@ -1971,8 +1964,8 @@ if (typeof exports !== 'undefined') {
    */
   sigma.utils.doubleClick = function(target, type, callback) {
     var clicks = 0,
-        self = this,
-        handlers;
+      self = this,
+      handlers;
 
     target._doubleClickHandler = target._doubleClickHandler || {};
     target._doubleClickHandler[type] = target._doubleClickHandler[type] || [];
@@ -2002,7 +1995,7 @@ if (typeof exports !== 'undefined') {
    */
   sigma.utils.unbindDoubleClick = function(target, type) {
     var handler,
-        handlers = (target._doubleClickHandler || {})[type] || [];
+      handlers = (target._doubleClickHandler || {})[type] || [];
 
     while ((handler = handlers.pop())) {
       target.removeEventListener(type, handler);
@@ -2069,7 +2062,7 @@ if (typeof exports !== 'undefined') {
    */
   sigma.utils.loadShader = function(gl, shaderSource, shaderType, error) {
     var compiled,
-        shader = gl.createShader(shaderType);
+      shader = gl.createShader(shaderType);
 
     // Load the shader source
     gl.shaderSource(shader, shaderSource);
@@ -2108,8 +2101,8 @@ if (typeof exports !== 'undefined') {
    */
   sigma.utils.loadProgram = function(gl, shaders, attribs, loc, error) {
     var i,
-        linked,
-        program = gl.createProgram();
+      linked,
+      program = gl.createProgram();
 
     for (i = 0; i < shaders.length; ++i)
       gl.attachShader(program, shaders[i]);
@@ -2173,7 +2166,7 @@ if (typeof exports !== 'undefined') {
    */
   sigma.utils.matrices.rotation = function(angle, m2) {
     var cos = Math.cos(angle),
-        sin = Math.sin(angle);
+      sin = Math.sin(angle);
 
     return m2 ? [
       cos, -sin,
@@ -2214,24 +2207,24 @@ if (typeof exports !== 'undefined') {
    */
   sigma.utils.matrices.multiply = function(a, b, m2) {
     var l = m2 ? 2 : 3,
-        a00 = a[0 * l + 0],
-        a01 = a[0 * l + 1],
-        a02 = a[0 * l + 2],
-        a10 = a[1 * l + 0],
-        a11 = a[1 * l + 1],
-        a12 = a[1 * l + 2],
-        a20 = a[2 * l + 0],
-        a21 = a[2 * l + 1],
-        a22 = a[2 * l + 2],
-        b00 = b[0 * l + 0],
-        b01 = b[0 * l + 1],
-        b02 = b[0 * l + 2],
-        b10 = b[1 * l + 0],
-        b11 = b[1 * l + 1],
-        b12 = b[1 * l + 2],
-        b20 = b[2 * l + 0],
-        b21 = b[2 * l + 1],
-        b22 = b[2 * l + 2];
+      a00 = a[0 * l + 0],
+      a01 = a[0 * l + 1],
+      a02 = a[0 * l + 2],
+      a10 = a[1 * l + 0],
+      a11 = a[1 * l + 1],
+      a12 = a[1 * l + 2],
+      a20 = a[2 * l + 0],
+      a21 = a[2 * l + 1],
+      a22 = a[2 * l + 2],
+      b00 = b[0 * l + 0],
+      b01 = b[0 * l + 1],
+      b02 = b[0 * l + 2],
+      b10 = b[1 * l + 0],
+      b11 = b[1 * l + 1],
+      b12 = b[1 * l + 2],
+      b20 = b[2 * l + 0],
+      b21 = b[2 * l + 1],
+      b22 = b[2 * l + 2];
 
     return m2 ? [
       a00 * b00 + a01 * b10,
@@ -2263,8 +2256,8 @@ if (typeof exports !== 'undefined') {
    * MIT license
    */
   var x,
-      lastTime = 0,
-      vendors = ['ms', 'moz', 'webkit', 'o'];
+    lastTime = 0,
+    vendors = ['ms', 'moz', 'webkit', 'o'];
 
   for (x = 0; x < vendors.length && !global.requestAnimationFrame; x++) {
     global.requestAnimationFrame =
@@ -2277,13 +2270,13 @@ if (typeof exports !== 'undefined') {
   if (!global.requestAnimationFrame)
     global.requestAnimationFrame = function(callback, element) {
       var currTime = new Date().getTime(),
-          timeToCall = Math.max(0, 16 - (currTime - lastTime)),
-          id = global.setTimeout(
-            function() {
-              callback(currTime + timeToCall);
-            },
-            timeToCall
-          );
+        timeToCall = Math.max(0, 16 - (currTime - lastTime)),
+        id = global.setTimeout(
+          function() {
+            callback(currTime + timeToCall);
+          },
+          timeToCall
+        );
 
       lastTime = currTime + timeToCall;
       return id;
@@ -2302,16 +2295,16 @@ if (typeof exports !== 'undefined') {
   if (!Function.prototype.bind)
     Function.prototype.bind = function(oThis) {
       if (typeof this !== 'function')
-        // Closest thing possible to the ECMAScript 5 internal IsCallable
-        // function:
+      // Closest thing possible to the ECMAScript 5 internal IsCallable
+      // function:
         throw new TypeError(
           'Function.prototype.bind - what is trying to be bound is not callable'
         );
 
       var aArgs = Array.prototype.slice.call(arguments, 1),
-          fToBind = this,
-          fNOP,
-          fBound;
+        fToBind = this,
+        fNOP,
+        fBound;
 
       fNOP = function() {};
       fBound = function() {
@@ -2585,9 +2578,9 @@ if (typeof exports !== 'undefined') {
    */
   dispatcher.prototype.bind = function(events, handler) {
     var i,
-        l,
-        event,
-        eArray;
+      l,
+      event,
+      eArray;
 
     if (
       arguments.length === 1 &&
@@ -2636,13 +2629,13 @@ if (typeof exports !== 'undefined') {
    */
   dispatcher.prototype.unbind = function(events, handler) {
     var i,
-        n,
-        j,
-        m,
-        k,
-        a,
-        event,
-        eArray = typeof events === 'string' ? events.split(' ') : events;
+      n,
+      j,
+      m,
+      k,
+      a,
+      event,
+      eArray = typeof events === 'string' ? events.split(' ') : events;
 
     if (!arguments.length) {
       for (k in this._handlers)
@@ -2682,14 +2675,14 @@ if (typeof exports !== 'undefined') {
    */
   dispatcher.prototype.dispatchEvent = function(events, data) {
     var i,
-        n,
-        j,
-        m,
-        a,
-        event,
-        eventName,
-        self = this,
-        eArray = typeof events === 'string' ? events.split(' ') : events;
+      n,
+      j,
+      m,
+      a,
+      event,
+      eventName,
+      self = this,
+      eArray = typeof events === 'string' ? events.split(' ') : events;
 
     data = data === undefined ? {} : data;
 
@@ -2776,9 +2769,9 @@ if (typeof exports !== 'undefined') {
    */
   var configurable = function() {
     var i,
-        l,
-        data = {},
-        datas = Array.prototype.slice.call(arguments, 0);
+      l,
+      data = {},
+      datas = Array.prototype.slice.call(arguments, 0);
 
     /**
      * The method to use to set or get any property of this instance.
@@ -2814,7 +2807,7 @@ if (typeof exports !== 'undefined') {
      */
     var settings = function(a1, a2) {
       var o,
-          k;
+        k;
 
       if (arguments.length === 1 && typeof a1 === 'string') {
         if ((a1 in data) && data[a1] !== undefined)
@@ -2881,17 +2874,17 @@ if (typeof exports !== 'undefined') {
   'use strict';
 
   var _methods = Object.create(null),
-      _indexes = Object.create(null),
-      _initBindings = Object.create(null),
-      _methodBindings = Object.create(null),
-      _methodBeforeBindings = Object.create(null),
-      _defaultSettings = {
-        immutable: true,
-        clone: true
-      },
-      _defaultSettingsFunction = function(key) {
-        return _defaultSettings[key];
-      };
+    _indexes = Object.create(null),
+    _initBindings = Object.create(null),
+    _methodBindings = Object.create(null),
+    _methodBeforeBindings = Object.create(null),
+    _defaultSettings = {
+      immutable: true,
+      clone: true
+    },
+    _defaultSettingsFunction = function(key) {
+      return _defaultSettings[key];
+    };
 
   /**
    * The graph constructor. It initializes the data and the indexes, and binds
@@ -2913,8 +2906,8 @@ if (typeof exports !== 'undefined') {
    */
   var graph = function(settings) {
     var k,
-        fn,
-        data;
+      fn,
+      data;
 
     /**
      * DATA:
@@ -2987,7 +2980,7 @@ if (typeof exports !== 'undefined') {
   function __bindGraphMethod(methodName, scope, fn) {
     var result = function() {
       var k,
-          res;
+        res;
 
       // Execute "before" bound functions:
       for (k in _methodBeforeBindings[methodName])
@@ -3144,7 +3137,7 @@ if (typeof exports !== 'undefined') {
     else {
       if (before) {
         if (!_methodBeforeBindings[methodName])
-        throw 'The method "' + methodName + '" does not exist.';
+          throw 'The method "' + methodName + '" does not exist.';
 
         bindings = _methodBeforeBindings[methodName];
       }
@@ -3158,7 +3151,7 @@ if (typeof exports !== 'undefined') {
 
     if (bindings[key])
       throw 'A function "' + key + '" is already attached ' +
-            'to the method "' + methodName + '".';
+      'to the method "' + methodName + '".';
 
     bindings[key] = fn;
 
@@ -3260,8 +3253,8 @@ if (typeof exports !== 'undefined') {
       throw 'The node "' + node.id + '" already exists.';
 
     var k,
-        id = node.id,
-        validNode = Object.create(null);
+      id = node.id,
+      validNode = Object.create(null);
 
     // Check the "clone" option:
     if (this.settings('clone')) {
@@ -3329,7 +3322,7 @@ if (typeof exports !== 'undefined') {
       throw 'The edge "' + edge.id + '" already exists.';
 
     var k,
-        validEdge = Object.create(null);
+      validEdge = Object.create(null);
 
     // Check the "clone" option:
     if (this.settings('clone')) {
@@ -3576,8 +3569,8 @@ if (typeof exports !== 'undefined') {
    */
   graph.addMethod('read', function(g) {
     var i,
-        a,
-        l;
+      a,
+      l;
 
     a = g.nodes || [];
     for (i = 0, l = a.length; i < l; i++)
@@ -3616,8 +3609,8 @@ if (typeof exports !== 'undefined') {
       Object.prototype.toString.call(v) === '[object Array]'
     ) {
       var i,
-          l,
-          a = [];
+        l,
+        a = [];
 
       for (i = 0, l = v.length; i < l; i++)
         if (typeof v[i] === 'string')
@@ -3655,8 +3648,8 @@ if (typeof exports !== 'undefined') {
     // Return an array of the related node:
     if (Object.prototype.toString.call(v) === '[object Array]') {
       var i,
-          l,
-          a = [];
+        l,
+        a = [];
 
       for (i = 0, l = v.length; i < l; i++)
         if (typeof v[i] === 'string')
@@ -3696,8 +3689,8 @@ if (typeof exports !== 'undefined') {
       Object.prototype.toString.call(v) === '[object Array]'
     ) {
       var i,
-          l,
-          a = [];
+        l,
+        a = [];
 
       for (i = 0, l = v.length; i < l; i++)
         if (typeof v[i] === 'string')
@@ -3783,9 +3776,9 @@ if (typeof exports !== 'undefined') {
       return this;
 
     var i,
-        l,
-        c = coordinates || {},
-        keys = ['x', 'y', 'ratio', 'angle'];
+      l,
+      c = coordinates || {},
+      keys = ['x', 'y', 'ratio', 'angle'];
 
     for (i = 0, l = keys.length; i < l; i++)
       if (c[keys[i]] !== undefined) {
@@ -3823,25 +3816,25 @@ if (typeof exports !== 'undefined') {
     read = read !== undefined ? read : this.readPrefix;
 
     var nodes = options.nodes || this.graph.nodes(),
-        edges = options.edges || this.graph.edges();
+      edges = options.edges || this.graph.edges();
 
     var i,
-        l,
-        node,
-        cos = Math.cos(this.angle),
-        sin = Math.sin(this.angle);
+      l,
+      node,
+      cos = Math.cos(this.angle),
+      sin = Math.sin(this.angle);
 
     for (i = 0, l = nodes.length; i < l; i++) {
       node = nodes[i];
       node[write + 'x'] =
         (
-          ((node[read + 'x'] || 0) - this.x) * cos +
-          ((node[read + 'y'] || 0) - this.y) * sin
+        ((node[read + 'x'] || 0) - this.x) * cos +
+        ((node[read + 'y'] || 0) - this.y) * sin
         ) / this.ratio + (options.width || 0) / 2;
       node[write + 'y'] =
         (
-          ((node[read + 'y'] || 0) - this.y) * cos -
-          ((node[read + 'x'] || 0) - this.x) * sin
+        ((node[read + 'y'] || 0) - this.y) * cos -
+        ((node[read + 'x'] || 0) - this.x) * sin
         ) / this.ratio + (options.height || 0) / 2;
       node[write + 'size'] =
         (node[read + 'size'] || 0) /
@@ -3869,9 +3862,9 @@ if (typeof exports !== 'undefined') {
    */
   sigma.classes.camera.prototype.graphPosition = function(x, y, vector) {
     var X = 0,
-        Y = 0,
-        cos = Math.cos(this.angle),
-        sin = Math.sin(this.angle);
+      Y = 0,
+      cos = Math.cos(this.angle),
+      sin = Math.sin(this.angle);
 
     // Revert the origin differential vector:
     if (!vector) {
@@ -3897,9 +3890,9 @@ if (typeof exports !== 'undefined') {
    */
   sigma.classes.camera.prototype.cameraPosition = function(x, y, vector) {
     var X = 0,
-        Y = 0,
-        cos = Math.cos(this.angle),
-        sin = Math.sin(this.angle);
+      Y = 0,
+      cos = Math.cos(this.angle),
+      sin = Math.sin(this.angle);
 
     // Revert the origin differential vector:
     if (!vector) {
@@ -3922,15 +3915,15 @@ if (typeof exports !== 'undefined') {
    */
   sigma.classes.camera.prototype.getMatrix = function() {
     var scale = sigma.utils.matrices.scale(1 / this.ratio),
-        rotation = sigma.utils.matrices.rotation(this.angle),
-        translation = sigma.utils.matrices.translation(-this.x, -this.y),
-        matrix = sigma.utils.matrices.multiply(
-          translation,
-          sigma.utils.matrices.multiply(
-            rotation,
-            scale
-          )
-        );
+      rotation = sigma.utils.matrices.rotation(this.angle),
+      translation = sigma.utils.matrices.translation(-this.x, -this.y),
+      matrix = sigma.utils.matrices.multiply(
+        translation,
+        sigma.utils.matrices.multiply(
+          rotation,
+          scale
+        )
+      );
 
     return matrix;
   };
@@ -3950,10 +3943,10 @@ if (typeof exports !== 'undefined') {
    */
   sigma.classes.camera.prototype.getRectangle = function(width, height) {
     var widthVect = this.cameraPosition(width, 0, true),
-        heightVect = this.cameraPosition(0, height, true),
-        centerVect = this.cameraPosition(width / 2, height / 2, true),
-        marginX = this.cameraPosition(width / 4, 0, true).x,
-        marginY = this.cameraPosition(0, height / 4, true).y;
+      heightVect = this.cameraPosition(0, height, true),
+      centerVect = this.cameraPosition(width / 2, height / 2, true),
+      marginX = this.cameraPosition(width / 4, 0, true).x,
+      marginY = this.cameraPosition(0, height / 4, true).y;
 
     return {
       x1: this.x - centerVect.x - marginX,
@@ -4100,7 +4093,7 @@ if (typeof exports !== 'undefined') {
      */
     rectangleCorners: function(r) {
       var llc = this.lowerLeftCoor(r),
-          lrc = this.lowerRightCoor(r, llc);
+        lrc = this.lowerRightCoor(r, llc);
 
       return [
         {x: r.x1, y: r.y1},
@@ -4172,8 +4165,8 @@ if (typeof exports !== 'undefined') {
      */
     projection: function(c, a) {
       var l = (
-        (c.x * a.x + c.y * a.y) /
-        (Math.pow(a.x, 2) + Math.pow(a.y, 2))
+      (c.x * a.x + c.y * a.y) /
+      (Math.pow(a.x, 2) + Math.pow(a.y, 2))
       );
 
       return {
@@ -4192,20 +4185,20 @@ if (typeof exports !== 'undefined') {
      */
     axisCollision: function(a, c1, c2) {
       var sc1 = [],
-          sc2 = [];
+        sc2 = [];
 
       for (var ci = 0; ci < 4; ci++) {
         var p1 = this.projection(c1[ci], a),
-            p2 = this.projection(c2[ci], a);
+          p2 = this.projection(c2[ci], a);
 
         sc1.push(p1.x * a.x + p1.y * a.y);
         sc2.push(p2.x * a.x + p2.y * a.y);
       }
 
       var maxc1 = Math.max.apply(Math, sc1),
-          maxc2 = Math.max.apply(Math, sc2),
-          minc1 = Math.min.apply(Math, sc1),
-          minc2 = Math.min.apply(Math, sc2);
+        maxc2 = Math.max.apply(Math, sc2),
+        minc1 = Math.min.apply(Math, sc1),
+        minc2 = Math.min.apply(Math, sc2);
 
       return (minc2 <= maxc1 && maxc2 >= minc1);
     },
@@ -4220,7 +4213,7 @@ if (typeof exports !== 'undefined') {
      */
     collision: function(c1, c2) {
       var axis = this.axis(c1, c2),
-          col = true;
+        col = true;
 
       for (var i = 0; i < 4; i++) {
         col *= this.axisCollision(axis[i], c1, c2);
@@ -4257,9 +4250,9 @@ if (typeof exports !== 'undefined') {
    */
   function _quadIndex(point, quadBounds) {
     var xmp = quadBounds.x + quadBounds.width / 2,
-        ymp = quadBounds.y + quadBounds.height / 2,
-        top = (point.y < ymp),
-        left = (point.x < xmp);
+      ymp = quadBounds.y + quadBounds.height / 2,
+      top = (point.y < ymp),
+      left = (point.x < xmp);
 
     if (top) {
       if (left)
@@ -4290,9 +4283,9 @@ if (typeof exports !== 'undefined') {
     // Iterating through quads
     for (var i = 0; i < 4; i++)
       if ((rectangle.x2 >= quadCorners[i][0].x) &&
-          (rectangle.x1 <= quadCorners[i][1].x) &&
-          (rectangle.y1 + rectangle.height >= quadCorners[i][0].y) &&
-          (rectangle.y1 <= quadCorners[i][2].y))
+        (rectangle.x1 <= quadCorners[i][1].x) &&
+        (rectangle.y1 + rectangle.height >= quadCorners[i][0].y) &&
+        (rectangle.y1 <= quadCorners[i][2].y))
         indexes.push(i);
 
     return indexes;
@@ -4328,12 +4321,12 @@ if (typeof exports !== 'undefined') {
    */
   function _quadSubdivide(index, quad) {
     var next = quad.level + 1,
-        subw = Math.round(quad.bounds.width / 2),
-        subh = Math.round(quad.bounds.height / 2),
-        qx = Math.round(quad.bounds.x),
-        qy = Math.round(quad.bounds.y),
-        x,
-        y;
+      subw = Math.round(quad.bounds.width / 2),
+      subh = Math.round(quad.bounds.height / 2),
+      qx = Math.round(quad.bounds.x),
+      qy = Math.round(quad.bounds.y),
+      x,
+      y;
 
     switch (index) {
       case 0:
@@ -4575,7 +4568,7 @@ if (typeof exports !== 'undefined') {
    */
   quad.prototype.point = function(x, y) {
     return this._tree ?
-      _quadRetrievePoint({x: x, y: y}, this._tree) || [] :
+    _quadRetrievePoint({x: x, y: y}, this._tree) || [] :
       [];
   };
 
@@ -4590,8 +4583,8 @@ if (typeof exports !== 'undefined') {
    */
   quad.prototype.area = function(rect) {
     var serialized = JSON.stringify(rect),
-        collisionFunc,
-        rectData;
+      collisionFunc,
+      rectData;
 
     // Returning cache?
     if (this._cache.query === serialized)
@@ -4665,32 +4658,32 @@ if (typeof exports !== 'undefined') {
    */
   sigma.captors.mouse = function(target, camera, settings) {
     var _self = this,
-        _target = target,
-        _camera = camera,
-        _settings = settings,
+      _target = target,
+      _camera = camera,
+      _settings = settings,
 
-        // CAMERA MANAGEMENT:
-        // ******************
-        // The camera position when the user starts dragging:
-        _startCameraX,
-        _startCameraY,
-        _startCameraAngle,
+    // CAMERA MANAGEMENT:
+    // ******************
+    // The camera position when the user starts dragging:
+      _startCameraX,
+      _startCameraY,
+      _startCameraAngle,
 
-        // The latest stage position:
-        _lastCameraX,
-        _lastCameraY,
-        _lastCameraAngle,
-        _lastCameraRatio,
+    // The latest stage position:
+      _lastCameraX,
+      _lastCameraY,
+      _lastCameraAngle,
+      _lastCameraRatio,
 
-        // MOUSE MANAGEMENT:
-        // *****************
-        // The mouse position when the user starts dragging:
-        _startMouseX,
-        _startMouseY,
+    // MOUSE MANAGEMENT:
+    // *****************
+    // The mouse position when the user starts dragging:
+      _startMouseX,
+      _startMouseY,
 
-        _isMouseDown,
-        _isMoving,
-        _movingTimeoutId;
+      _isMouseDown,
+      _isMoving,
+      _movingTimeoutId;
 
     sigma.classes.dispatcher.extend(this);
 
@@ -4734,8 +4727,8 @@ if (typeof exports !== 'undefined') {
      */
     function _moveHandler(e) {
       var x,
-          y,
-          pos;
+        y,
+        pos;
 
       // Dispatch event:
       if (_settings('mouseEnabled'))
@@ -4807,7 +4800,7 @@ if (typeof exports !== 'undefined') {
         _camera.isMoving = false;
 
         var x = sigma.utils.getX(e),
-            y = sigma.utils.getY(e);
+          y = sigma.utils.getY(e);
 
         if (_isMoving) {
           sigma.misc.animation.killAll(_camera);
@@ -4815,9 +4808,9 @@ if (typeof exports !== 'undefined') {
             _camera,
             {
               x: _camera.x +
-                _settings('mouseInertiaRatio') * (_camera.x - _lastCameraX),
+              _settings('mouseInertiaRatio') * (_camera.x - _lastCameraX),
               y: _camera.y +
-                _settings('mouseInertiaRatio') * (_camera.y - _lastCameraY)
+              _settings('mouseInertiaRatio') * (_camera.y - _lastCameraY)
             },
             {
               easing: 'quadraticOut',
@@ -4950,8 +4943,8 @@ if (typeof exports !== 'undefined') {
      */
     function _doubleClickHandler(e) {
       var pos,
-          ratio,
-          animation;
+        ratio,
+        animation;
 
       if (_settings('mouseEnabled')) {
         ratio = 1 / _settings('doubleClickZoomingRatio');
@@ -4999,12 +4992,12 @@ if (typeof exports !== 'undefined') {
      */
     function _wheelHandler(e) {
       var pos,
-          ratio,
-          animation;
+        ratio,
+        animation;
 
       if (_settings('mouseEnabled')) {
         ratio = sigma.utils.getDelta(e) > 0 ?
-          1 / _settings('zoomingRatio') :
+        1 / _settings('zoomingRatio') :
           _settings('zoomingRatio');
 
         pos = _camera.cameraPosition(
@@ -5052,41 +5045,41 @@ if (typeof exports !== 'undefined') {
    */
   sigma.captors.touch = function(target, camera, settings) {
     var _self = this,
-        _target = target,
-        _camera = camera,
-        _settings = settings,
+      _target = target,
+      _camera = camera,
+      _settings = settings,
 
-        // CAMERA MANAGEMENT:
-        // ******************
-        // The camera position when the user starts dragging:
-        _startCameraX,
-        _startCameraY,
-        _startCameraAngle,
-        _startCameraRatio,
+    // CAMERA MANAGEMENT:
+    // ******************
+    // The camera position when the user starts dragging:
+      _startCameraX,
+      _startCameraY,
+      _startCameraAngle,
+      _startCameraRatio,
 
-        // The latest stage position:
-        _lastCameraX,
-        _lastCameraY,
-        _lastCameraAngle,
-        _lastCameraRatio,
+    // The latest stage position:
+      _lastCameraX,
+      _lastCameraY,
+      _lastCameraAngle,
+      _lastCameraRatio,
 
-        // TOUCH MANAGEMENT:
-        // *****************
-        // Touches that are down:
-        _downTouches = [],
+    // TOUCH MANAGEMENT:
+    // *****************
+    // Touches that are down:
+      _downTouches = [],
 
-        _startTouchX0,
-        _startTouchY0,
-        _startTouchX1,
-        _startTouchY1,
-        _startTouchAngle,
-        _startTouchDistance,
+      _startTouchX0,
+      _startTouchY0,
+      _startTouchX1,
+      _startTouchY1,
+      _startTouchAngle,
+      _startTouchDistance,
 
-        _touchMode,
+      _touchMode,
 
-        _isMoving,
-        _doubleTap,
-        _movingTimeoutId;
+      _isMoving,
+      _doubleTap,
+      _movingTimeoutId;
 
     sigma.classes.dispatcher.extend(this);
 
@@ -5135,11 +5128,11 @@ if (typeof exports !== 'undefined') {
     function _handleStart(e) {
       if (_settings('touchEnabled')) {
         var x0,
-            x1,
-            y0,
-            y1,
-            pos0,
-            pos1;
+          x1,
+          y0,
+          y1,
+          pos0,
+          pos1;
 
         _downTouches = e.touches;
 
@@ -5224,7 +5217,7 @@ if (typeof exports !== 'undefined') {
               e.preventDefault();
               break;
             }
-            /* falls through */
+          /* falls through */
           case 1:
             _camera.isMoving = false;
             _self.dispatchEvent('stopDrag');
@@ -5235,9 +5228,9 @@ if (typeof exports !== 'undefined') {
                 _camera,
                 {
                   x: _camera.x +
-                    inertiaRatio * (_camera.x - _lastCameraX),
+                  inertiaRatio * (_camera.x - _lastCameraX),
                   y: _camera.y +
-                    inertiaRatio * (_camera.y - _lastCameraY)
+                  inertiaRatio * (_camera.y - _lastCameraY)
                 },
                 {
                   easing: 'quadraticOut',
@@ -5263,22 +5256,22 @@ if (typeof exports !== 'undefined') {
     function _handleMove(e) {
       if (!_doubleTap && _settings('touchEnabled')) {
         var x0,
-            x1,
-            y0,
-            y1,
-            cos,
-            sin,
-            end,
-            pos0,
-            pos1,
-            diff,
-            start,
-            dAngle,
-            dRatio,
-            newStageX,
-            newStageY,
-            newStageRatio,
-            newStageAngle;
+          x1,
+          y0,
+          y1,
+          cos,
+          sin,
+          end,
+          pos0,
+          pos1,
+          diff,
+          start,
+          dAngle,
+          dRatio,
+          newStageX,
+          newStageY,
+          newStageRatio,
+          newStageAngle;
 
         _downTouches = e.touches;
         _isMoving = true;
@@ -5411,8 +5404,8 @@ if (typeof exports !== 'undefined') {
      */
     function _doubleTapHandler(e) {
       var pos,
-          ratio,
-          animation;
+        ratio,
+        animation;
 
       if (e.touches && e.touches.length === 1 && _settings('touchEnabled')) {
         _doubleTap = true;
@@ -5490,11 +5483,11 @@ if (typeof exports !== 'undefined') {
       throw 'Container not found.';
 
     var k,
-        i,
-        l,
-        a,
-        fn,
-        self = this;
+      i,
+      l,
+      a,
+      fn,
+      self = this;
 
     sigma.classes.dispatcher.extend(this);
 
@@ -5509,11 +5502,11 @@ if (typeof exports !== 'undefined') {
     this.options = options;
     this.container = this.options.container;
     this.settings = (
-        typeof options.settings === 'object' &&
-        options.settings
-      ) ?
-        settings.embedObjects(options.settings) :
-        settings;
+    typeof options.settings === 'object' &&
+    options.settings
+    ) ?
+      settings.embedObjects(options.settings) :
+      settings;
 
     // Node indexes:
     this.nodesOnScreen = [];
@@ -5584,29 +5577,29 @@ if (typeof exports !== 'undefined') {
     options = options || {};
 
     var a,
-        i,
-        k,
-        l,
-        o,
-        id,
-        end,
-        job,
-        start,
-        edges,
-        renderers,
-        rendererType,
-        batchSize,
-        tempGCO,
-        index = {},
-        graph = this.graph,
-        nodes = this.graph.nodes,
-        prefix = this.options.prefix || '',
-        drawEdges = this.settings(options, 'drawEdges'),
-        drawNodes = this.settings(options, 'drawNodes'),
-        drawLabels = this.settings(options, 'drawLabels'),
-        embedSettings = this.settings.embedObjects(options, {
-          prefix: this.options.prefix
-        });
+      i,
+      k,
+      l,
+      o,
+      id,
+      end,
+      job,
+      start,
+      edges,
+      renderers,
+      rendererType,
+      batchSize,
+      tempGCO,
+      index = {},
+      graph = this.graph,
+      nodes = this.graph.nodes,
+      prefix = this.options.prefix || '',
+      drawEdges = this.settings(options, 'drawEdges'),
+      drawNodes = this.settings(options, 'drawNodes'),
+      drawLabels = this.settings(options, 'drawLabels'),
+      embedSettings = this.settings.embedObjects(options, {
+        prefix: this.options.prefix
+      });
 
     // Check the 'hideEdgesOnMove' setting:
     if (this.settings(options, 'hideEdgesOnMove'))
@@ -5701,7 +5694,7 @@ if (typeof exports !== 'undefined') {
         this.jobs[id] = job;
         conrad.addJob(id, job.bind(this));
 
-      // If not, they are drawn in one frame:
+        // If not, they are drawn in one frame:
       } else {
         renderers = sigma.canvas.edges;
         for (a = this.edgesOnScreen, i = 0, l = a.length; i < l; i++) {
@@ -5779,15 +5772,15 @@ if (typeof exports !== 'undefined') {
    */
   sigma.renderers.canvas.prototype.resize = function(w, h) {
     var k,
-        oldWidth = this.width,
-        oldHeight = this.height,
-        pixelRatio = 1;
-        // TODO:
-        // *****
-        // This pixelRatio is the solution to display with the good definition
-        // on canvases on Retina displays (ie oversampling). Unfortunately, it
-        // has a huge performance cost...
-        //  > pixelRatio = window.devicePixelRatio || 1;
+      oldWidth = this.width,
+      oldHeight = this.height,
+      pixelRatio = 1;
+    // TODO:
+    // *****
+    // This pixelRatio is the solution to display with the good definition
+    // on canvases on Retina displays (ie oversampling). Unfortunately, it
+    // has a huge performance cost...
+    //  > pixelRatio = window.devicePixelRatio || 1;
 
     if (w !== undefined && h !== undefined) {
       this.width = w;
@@ -5838,7 +5831,7 @@ if (typeof exports !== 'undefined') {
    */
   sigma.renderers.canvas.prototype.kill = function() {
     var k,
-        captor;
+      captor;
 
     // Unbind resize:
     window.removeEventListener('resize', this.boundResize);
@@ -5901,11 +5894,11 @@ if (typeof exports !== 'undefined') {
       throw 'Container not found.';
 
     var k,
-        i,
-        l,
-        a,
-        fn,
-        _self = this;
+      i,
+      l,
+      a,
+      fn,
+      _self = this;
 
     sigma.classes.dispatcher.extend(this);
 
@@ -5924,11 +5917,11 @@ if (typeof exports !== 'undefined') {
     this.options = options;
     this.container = this.options.container;
     this.settings = (
-        typeof options.settings === 'object' &&
-        options.settings
-      ) ?
-        settings.embedObjects(options.settings) :
-        settings;
+    typeof options.settings === 'object' &&
+    options.settings
+    ) ?
+      settings.embedObjects(options.settings) :
+      settings;
 
     // Find the prefix:
     this.options.prefix = this.camera.readPrefix;
@@ -6010,12 +6003,12 @@ if (typeof exports !== 'undefined') {
    */
   sigma.renderers.webgl.prototype.process = function() {
     var a,
-        i,
-        l,
-        k,
-        renderer,
-        graph = this.graph,
-        options = sigma.utils.extend(options, this.options);
+      i,
+      l,
+      k,
+      renderer,
+      graph = this.graph,
+      options = sigma.utils.extend(options, this.options);
 
     // Empty float arrays:
     for (k in this.nodeFloatArrays)
@@ -6118,21 +6111,21 @@ if (typeof exports !== 'undefined') {
    */
   sigma.renderers.webgl.prototype.render = function(params) {
     var a,
-        i,
-        l,
-        k,
-        o,
-        program,
-        renderer,
-        self = this,
-        graph = this.graph,
-        nodesGl = this.contexts.nodes,
-        edgesGl = this.contexts.edges,
-        matrix = this.camera.getMatrix(),
-        options = sigma.utils.extend(params, this.options),
-        drawLabels = this.settings(options, 'drawLabels'),
-        drawEdges = this.settings(options, 'drawEdges'),
-        drawNodes = this.settings(options, 'drawNodes');
+      i,
+      l,
+      k,
+      o,
+      program,
+      renderer,
+      self = this,
+      graph = this.graph,
+      nodesGl = this.contexts.nodes,
+      edgesGl = this.contexts.edges,
+      matrix = this.camera.getMatrix(),
+      options = sigma.utils.extend(params, this.options),
+      drawLabels = this.settings(options, 'drawLabels'),
+      drawEdges = this.settings(options, 'drawEdges'),
+      drawNodes = this.settings(options, 'drawNodes');
 
     // Check the 'hideEdgesOnMove' setting:
     if (this.settings(options, 'hideEdgesOnMove'))
@@ -6157,16 +6150,16 @@ if (typeof exports !== 'undefined') {
       if (this.settings(options, 'batchEdgesDrawing'))
         (function() {
           var a,
-              k,
-              i,
-              id,
-              job,
-              arr,
-              end,
-              start,
-              renderer,
-              batchSize,
-              currentProgram;
+            k,
+            i,
+            id,
+            job,
+            arr,
+            end,
+            start,
+            renderer,
+            batchSize,
+            currentProgram;
 
           id = 'edges_' + this.conradId;
           batchSize = this.settings(options, 'webglEdgesBatchSize');
@@ -6326,8 +6319,8 @@ if (typeof exports !== 'undefined') {
       for (i = 0, l = a.length; i < l; i++)
         if (!a[i].hidden)
           (
-            sigma.canvas.labels[a[i].type] ||
-            sigma.canvas.labels.def
+          sigma.canvas.labels[a[i].type] ||
+          sigma.canvas.labels.def
           )(a[i], this.contexts.labels, o);
     }
 
@@ -6351,7 +6344,7 @@ if (typeof exports !== 'undefined') {
    */
   sigma.renderers.webgl.prototype.initDOM = function(tag, id, webgl) {
     var gl,
-        dom = document.createElement(tag);
+      dom = document.createElement(tag);
 
     dom.style.position = 'absolute';
     dom.setAttribute('class', 'sigma-' + id);
@@ -6375,8 +6368,8 @@ if (typeof exports !== 'undefined') {
    */
   sigma.renderers.webgl.prototype.resize = function(w, h) {
     var k,
-        oldWidth = this.width,
-        oldHeight = this.height;
+      oldWidth = this.width,
+      oldHeight = this.height;
 
     if (w !== undefined && h !== undefined) {
       this.width = w;
@@ -6449,7 +6442,7 @@ if (typeof exports !== 'undefined') {
    */
   sigma.renderers.webgl.prototype.kill = function() {
     var k,
-        captor;
+      captor;
 
     // Unbind resize:
     window.removeEventListener('resize', this.boundResize);
@@ -6565,13 +6558,13 @@ if (typeof exports !== 'undefined') {
 
   // Check if WebGL is enabled:
   var canvas,
-      webgl = !!global.WebGLRenderingContext;
+    webgl = !!global.WebGLRenderingContext;
   if (webgl) {
     canvas = document.createElement('canvas');
     try {
       webgl = !!(
-        canvas.getContext('webgl') ||
-        canvas.getContext('experimental-webgl')
+      canvas.getContext('webgl') ||
+      canvas.getContext('experimental-webgl')
       );
     } catch (e) {
       webgl = false;
@@ -6631,21 +6624,21 @@ if (typeof exports !== 'undefined') {
 
       // Define attributes:
       var positionLocation =
-            gl.getAttribLocation(program, 'a_position'),
-          sizeLocation =
-            gl.getAttribLocation(program, 'a_size'),
-          colorLocation =
-            gl.getAttribLocation(program, 'a_color'),
-          angleLocation =
-            gl.getAttribLocation(program, 'a_angle'),
-          resolutionLocation =
-            gl.getUniformLocation(program, 'u_resolution'),
-          matrixLocation =
-            gl.getUniformLocation(program, 'u_matrix'),
-          ratioLocation =
-            gl.getUniformLocation(program, 'u_ratio'),
-          scaleLocation =
-            gl.getUniformLocation(program, 'u_scale');
+          gl.getAttribLocation(program, 'a_position'),
+        sizeLocation =
+          gl.getAttribLocation(program, 'a_size'),
+        colorLocation =
+          gl.getAttribLocation(program, 'a_color'),
+        angleLocation =
+          gl.getAttribLocation(program, 'a_angle'),
+        resolutionLocation =
+          gl.getUniformLocation(program, 'u_resolution'),
+        matrixLocation =
+          gl.getUniformLocation(program, 'u_matrix'),
+        ratioLocation =
+          gl.getUniformLocation(program, 'u_ratio'),
+        scaleLocation =
+          gl.getUniformLocation(program, 'u_scale');
 
       buffer = gl.createBuffer();
       gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
@@ -6705,8 +6698,8 @@ if (typeof exports !== 'undefined') {
     },
     initProgram: function(gl) {
       var vertexShader,
-          fragmentShader,
-          program;
+        fragmentShader,
+        program;
 
       vertexShader = sigma.utils.loadShader(
         gl,
@@ -6726,29 +6719,29 @@ if (typeof exports !== 'undefined') {
           'varying float radius;',
 
           'void main() {',
-            // Multiply the point size twice:
-            'radius = a_size * u_ratio;',
+          // Multiply the point size twice:
+          'radius = a_size * u_ratio;',
 
-            // Scale from [[-1 1] [-1 1]] to the container:
-            'vec2 position = (u_matrix * vec3(a_position, 1)).xy;',
-            // 'center = (position / u_resolution * 2.0 - 1.0) * vec2(1, -1);',
-            'center = position * u_scale;',
-            'center = vec2(center.x, u_scale * u_resolution.y - center.y);',
+          // Scale from [[-1 1] [-1 1]] to the container:
+          'vec2 position = (u_matrix * vec3(a_position, 1)).xy;',
+          // 'center = (position / u_resolution * 2.0 - 1.0) * vec2(1, -1);',
+          'center = position * u_scale;',
+          'center = vec2(center.x, u_scale * u_resolution.y - center.y);',
 
-            'position = position +',
-              '2.0 * radius * vec2(cos(a_angle), sin(a_angle));',
-            'position = (position / u_resolution * 2.0 - 1.0) * vec2(1, -1);',
+          'position = position +',
+          '2.0 * radius * vec2(cos(a_angle), sin(a_angle));',
+          'position = (position / u_resolution * 2.0 - 1.0) * vec2(1, -1);',
 
-            'radius = radius * u_scale;',
+          'radius = radius * u_scale;',
 
-            'gl_Position = vec4(position, 0, 1);',
+          'gl_Position = vec4(position, 0, 1);',
 
-            // Extract the color:
-            'float c = a_color;',
-            'color.b = mod(c, 256.0); c = floor(c / 256.0);',
-            'color.g = mod(c, 256.0); c = floor(c / 256.0);',
-            'color.r = mod(c, 256.0); c = floor(c / 256.0); color /= 255.0;',
-            'color.a = 1.0;',
+          // Extract the color:
+          'float c = a_color;',
+          'color.b = mod(c, 256.0); c = floor(c / 256.0);',
+          'color.g = mod(c, 256.0); c = floor(c / 256.0);',
+          'color.r = mod(c, 256.0); c = floor(c / 256.0); color /= 255.0;',
+          'color.a = 1.0;',
           '}'
         ].join('\n'),
         gl.VERTEX_SHADER
@@ -6764,16 +6757,16 @@ if (typeof exports !== 'undefined') {
           'varying float radius;',
 
           'void main(void) {',
-            'vec4 color0 = vec4(0.0, 0.0, 0.0, 0.0);',
+          'vec4 color0 = vec4(0.0, 0.0, 0.0, 0.0);',
 
-            'vec2 m = gl_FragCoord.xy - center;',
-            'float diff = radius - sqrt(m.x * m.x + m.y * m.y);',
+          'vec2 m = gl_FragCoord.xy - center;',
+          'float diff = radius - sqrt(m.x * m.x + m.y * m.y);',
 
-            // Here is how we draw a disc instead of a square:
-            'if (diff > 0.0)',
-              'gl_FragColor = color;',
-            'else',
-              'gl_FragColor = color0;',
+          // Here is how we draw a disc instead of a square:
+          'if (diff > 0.0)',
+          'gl_FragColor = color;',
+          'else',
+          'gl_FragColor = color0;',
           '}'
         ].join('\n'),
         gl.FRAGMENT_SHADER
@@ -6824,19 +6817,19 @@ if (typeof exports !== 'undefined') {
 
       // Define attributes:
       var positionLocation =
-            gl.getAttribLocation(program, 'a_position'),
-          sizeLocation =
-            gl.getAttribLocation(program, 'a_size'),
-          colorLocation =
-            gl.getAttribLocation(program, 'a_color'),
-          resolutionLocation =
-            gl.getUniformLocation(program, 'u_resolution'),
-          matrixLocation =
-            gl.getUniformLocation(program, 'u_matrix'),
-          ratioLocation =
-            gl.getUniformLocation(program, 'u_ratio'),
-          scaleLocation =
-            gl.getUniformLocation(program, 'u_scale');
+          gl.getAttribLocation(program, 'a_position'),
+        sizeLocation =
+          gl.getAttribLocation(program, 'a_size'),
+        colorLocation =
+          gl.getAttribLocation(program, 'a_color'),
+        resolutionLocation =
+          gl.getUniformLocation(program, 'u_resolution'),
+        matrixLocation =
+          gl.getUniformLocation(program, 'u_matrix'),
+        ratioLocation =
+          gl.getUniformLocation(program, 'u_ratio'),
+        scaleLocation =
+          gl.getUniformLocation(program, 'u_scale');
 
       buffer = gl.createBuffer();
       gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
@@ -6887,8 +6880,8 @@ if (typeof exports !== 'undefined') {
     },
     initProgram: function(gl) {
       var vertexShader,
-          fragmentShader,
-          program;
+        fragmentShader,
+        program;
 
       vertexShader = sigma.utils.loadShader(
         gl,
@@ -6905,25 +6898,25 @@ if (typeof exports !== 'undefined') {
           'varying vec4 color;',
 
           'void main() {',
-            // Scale from [[-1 1] [-1 1]] to the container:
-            'gl_Position = vec4(',
-              '((u_matrix * vec3(a_position, 1)).xy /',
-                'u_resolution * 2.0 - 1.0) * vec2(1, -1),',
-              '0,',
-              '1',
-            ');',
+          // Scale from [[-1 1] [-1 1]] to the container:
+          'gl_Position = vec4(',
+          '((u_matrix * vec3(a_position, 1)).xy /',
+          'u_resolution * 2.0 - 1.0) * vec2(1, -1),',
+          '0,',
+          '1',
+          ');',
 
-            // Multiply the point size twice:
-            //  - x SCALING_RATIO to correct the canvas scaling
-            //  - x 2 to correct the formulae
-            'gl_PointSize = a_size * u_ratio * u_scale * 2.0;',
+          // Multiply the point size twice:
+          //  - x SCALING_RATIO to correct the canvas scaling
+          //  - x 2 to correct the formulae
+          'gl_PointSize = a_size * u_ratio * u_scale * 2.0;',
 
-            // Extract the color:
-            'float c = a_color;',
-            'color.b = mod(c, 256.0); c = floor(c / 256.0);',
-            'color.g = mod(c, 256.0); c = floor(c / 256.0);',
-            'color.r = mod(c, 256.0); c = floor(c / 256.0); color /= 255.0;',
-            'color.a = 1.0;',
+          // Extract the color:
+          'float c = a_color;',
+          'color.b = mod(c, 256.0); c = floor(c / 256.0);',
+          'color.g = mod(c, 256.0); c = floor(c / 256.0);',
+          'color.r = mod(c, 256.0); c = floor(c / 256.0); color /= 255.0;',
+          'color.a = 1.0;',
           '}'
         ].join('\n'),
         gl.VERTEX_SHADER
@@ -6937,7 +6930,7 @@ if (typeof exports !== 'undefined') {
           'varying vec4 color;',
 
           'void main(void) {',
-            'gl_FragColor = color;',
+          'gl_FragColor = color;',
           '}'
         ].join('\n'),
         gl.FRAGMENT_SHADER
@@ -6969,11 +6962,11 @@ if (typeof exports !== 'undefined') {
     ATTRIBUTES: 7,
     addEdge: function(edge, source, target, data, i, prefix, settings) {
       var w = (edge[prefix + 'size'] || 1) / 2,
-          x1 = source[prefix + 'x'],
-          y1 = source[prefix + 'y'],
-          x2 = target[prefix + 'x'],
-          y2 = target[prefix + 'y'],
-          color = edge.color;
+        x1 = source[prefix + 'x'],
+        y1 = source[prefix + 'y'],
+        x2 = target[prefix + 'x'],
+        y2 = target[prefix + 'y'],
+        color = edge.color;
 
       if (!color)
         switch (settings('edgeColor')) {
@@ -7044,27 +7037,27 @@ if (typeof exports !== 'undefined') {
 
       // Define attributes:
       var colorLocation =
-            gl.getAttribLocation(program, 'a_color'),
-          positionLocation1 =
-            gl.getAttribLocation(program, 'a_position1'),
-          positionLocation2 =
-            gl.getAttribLocation(program, 'a_position2'),
-          thicknessLocation =
-            gl.getAttribLocation(program, 'a_thickness'),
-          minusLocation =
-            gl.getAttribLocation(program, 'a_minus'),
-          resolutionLocation =
-            gl.getUniformLocation(program, 'u_resolution'),
-          matrixLocation =
-            gl.getUniformLocation(program, 'u_matrix'),
-          matrixHalfPiLocation =
-            gl.getUniformLocation(program, 'u_matrixHalfPi'),
-          matrixHalfPiMinusLocation =
-            gl.getUniformLocation(program, 'u_matrixHalfPiMinus'),
-          ratioLocation =
-            gl.getUniformLocation(program, 'u_ratio'),
-          scaleLocation =
-            gl.getUniformLocation(program, 'u_scale');
+          gl.getAttribLocation(program, 'a_color'),
+        positionLocation1 =
+          gl.getAttribLocation(program, 'a_position1'),
+        positionLocation2 =
+          gl.getAttribLocation(program, 'a_position2'),
+        thicknessLocation =
+          gl.getAttribLocation(program, 'a_thickness'),
+        minusLocation =
+          gl.getAttribLocation(program, 'a_minus'),
+        resolutionLocation =
+          gl.getUniformLocation(program, 'u_resolution'),
+        matrixLocation =
+          gl.getUniformLocation(program, 'u_matrix'),
+        matrixHalfPiLocation =
+          gl.getUniformLocation(program, 'u_matrixHalfPi'),
+        matrixHalfPiMinusLocation =
+          gl.getUniformLocation(program, 'u_matrixHalfPiMinus'),
+        ratioLocation =
+          gl.getUniformLocation(program, 'u_ratio'),
+        scaleLocation =
+          gl.getUniformLocation(program, 'u_scale');
 
       buffer = gl.createBuffer();
       gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
@@ -7138,8 +7131,8 @@ if (typeof exports !== 'undefined') {
     },
     initProgram: function(gl) {
       var vertexShader,
-          fragmentShader,
-          program;
+        fragmentShader,
+        program;
 
       vertexShader = sigma.utils.loadShader(
         gl,
@@ -7160,29 +7153,29 @@ if (typeof exports !== 'undefined') {
           'varying vec4 color;',
 
           'void main() {',
-            // Find the good point:
-            'vec2 position = a_thickness * u_ratio *',
-              'normalize(a_position2 - a_position1);',
+          // Find the good point:
+          'vec2 position = a_thickness * u_ratio *',
+          'normalize(a_position2 - a_position1);',
 
-            'mat2 matrix = a_minus * u_matrixHalfPiMinus +',
-              '(1.0 - a_minus) * u_matrixHalfPi;',
+          'mat2 matrix = a_minus * u_matrixHalfPiMinus +',
+          '(1.0 - a_minus) * u_matrixHalfPi;',
 
-            'position = matrix * position + a_position1;',
+          'position = matrix * position + a_position1;',
 
-            // Scale from [[-1 1] [-1 1]] to the container:
-            'gl_Position = vec4(',
-              '((u_matrix * vec3(position, 1)).xy /',
-                'u_resolution * 2.0 - 1.0) * vec2(1, -1),',
-              '0,',
-              '1',
-            ');',
+          // Scale from [[-1 1] [-1 1]] to the container:
+          'gl_Position = vec4(',
+          '((u_matrix * vec3(position, 1)).xy /',
+          'u_resolution * 2.0 - 1.0) * vec2(1, -1),',
+          '0,',
+          '1',
+          ');',
 
-            // Extract the color:
-            'float c = a_color;',
-            'color.b = mod(c, 256.0); c = floor(c / 256.0);',
-            'color.g = mod(c, 256.0); c = floor(c / 256.0);',
-            'color.r = mod(c, 256.0); c = floor(c / 256.0); color /= 255.0;',
-            'color.a = 1.0;',
+          // Extract the color:
+          'float c = a_color;',
+          'color.b = mod(c, 256.0); c = floor(c / 256.0);',
+          'color.g = mod(c, 256.0); c = floor(c / 256.0);',
+          'color.r = mod(c, 256.0); c = floor(c / 256.0); color /= 255.0;',
+          'color.a = 1.0;',
           '}'
         ].join('\n'),
         gl.VERTEX_SHADER
@@ -7196,7 +7189,7 @@ if (typeof exports !== 'undefined') {
           'varying vec4 color;',
 
           'void main(void) {',
-            'gl_FragColor = color;',
+          'gl_FragColor = color;',
           '}'
         ].join('\n'),
         gl.FRAGMENT_SHADER
@@ -7225,11 +7218,11 @@ if (typeof exports !== 'undefined') {
     ATTRIBUTES: 3,
     addEdge: function(edge, source, target, data, i, prefix, settings) {
       var w = (edge[prefix + 'size'] || 1) / 2,
-          x1 = source[prefix + 'x'],
-          y1 = source[prefix + 'y'],
-          x2 = target[prefix + 'x'],
-          y2 = target[prefix + 'y'],
-          color = edge.color;
+        x1 = source[prefix + 'x'],
+        y1 = source[prefix + 'y'],
+        x2 = target[prefix + 'x'],
+        y2 = target[prefix + 'y'],
+        color = edge.color;
 
       if (!color)
         switch (settings('edgeColor')) {
@@ -7260,13 +7253,13 @@ if (typeof exports !== 'undefined') {
 
       // Define attributes:
       var colorLocation =
-            gl.getAttribLocation(program, 'a_color'),
-          positionLocation =
-            gl.getAttribLocation(program, 'a_position'),
-          resolutionLocation =
-            gl.getUniformLocation(program, 'u_resolution'),
-          matrixLocation =
-            gl.getUniformLocation(program, 'u_matrix');
+          gl.getAttribLocation(program, 'a_color'),
+        positionLocation =
+          gl.getAttribLocation(program, 'a_position'),
+        resolutionLocation =
+          gl.getUniformLocation(program, 'u_resolution'),
+        matrixLocation =
+          gl.getUniformLocation(program, 'u_matrix');
 
       buffer = gl.createBuffer();
       gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
@@ -7302,8 +7295,8 @@ if (typeof exports !== 'undefined') {
     },
     initProgram: function(gl) {
       var vertexShader,
-          fragmentShader,
-          program;
+        fragmentShader,
+        program;
 
       vertexShader = sigma.utils.loadShader(
         gl,
@@ -7317,20 +7310,20 @@ if (typeof exports !== 'undefined') {
           'varying vec4 color;',
 
           'void main() {',
-            // Scale from [[-1 1] [-1 1]] to the container:
-            'gl_Position = vec4(',
-              '((u_matrix * vec3(a_position, 1)).xy /',
-                'u_resolution * 2.0 - 1.0) * vec2(1, -1),',
-              '0,',
-              '1',
-            ');',
+          // Scale from [[-1 1] [-1 1]] to the container:
+          'gl_Position = vec4(',
+          '((u_matrix * vec3(a_position, 1)).xy /',
+          'u_resolution * 2.0 - 1.0) * vec2(1, -1),',
+          '0,',
+          '1',
+          ');',
 
-            // Extract the color:
-            'float c = a_color;',
-            'color.b = mod(c, 256.0); c = floor(c / 256.0);',
-            'color.g = mod(c, 256.0); c = floor(c / 256.0);',
-            'color.r = mod(c, 256.0); c = floor(c / 256.0); color /= 255.0;',
-            'color.a = 1.0;',
+          // Extract the color:
+          'float c = a_color;',
+          'color.b = mod(c, 256.0); c = floor(c / 256.0);',
+          'color.g = mod(c, 256.0); c = floor(c / 256.0);',
+          'color.r = mod(c, 256.0); c = floor(c / 256.0); color /= 255.0;',
+          'color.a = 1.0;',
           '}'
         ].join('\n'),
         gl.VERTEX_SHADER
@@ -7344,7 +7337,7 @@ if (typeof exports !== 'undefined') {
           'varying vec4 color;',
 
           'void main(void) {',
-            'gl_FragColor = color;',
+          'gl_FragColor = color;',
           '}'
         ].join('\n'),
         gl.FRAGMENT_SHADER
@@ -7376,12 +7369,12 @@ if (typeof exports !== 'undefined') {
     ATTRIBUTES: 11,
     addEdge: function(edge, source, target, data, i, prefix, settings) {
       var w = (edge[prefix + 'size'] || 1) / 2,
-          x1 = source[prefix + 'x'],
-          y1 = source[prefix + 'y'],
-          x2 = target[prefix + 'x'],
-          y2 = target[prefix + 'y'],
-          targetSize = target[prefix + 'size'],
-          color = edge.color;
+        x1 = source[prefix + 'x'],
+        y1 = source[prefix + 'y'],
+        x2 = target[prefix + 'x'],
+        y2 = target[prefix + 'y'],
+        targetSize = target[prefix + 'size'],
+        color = edge.color;
 
       if (!color)
         switch (settings('edgeColor')) {
@@ -7513,39 +7506,39 @@ if (typeof exports !== 'undefined') {
 
       // Define attributes:
       var positionLocation1 =
-            gl.getAttribLocation(program, 'a_pos1'),
-          positionLocation2 =
-            gl.getAttribLocation(program, 'a_pos2'),
-          thicknessLocation =
-            gl.getAttribLocation(program, 'a_thickness'),
-          targetSizeLocation =
-            gl.getAttribLocation(program, 'a_tSize'),
-          delayLocation =
-            gl.getAttribLocation(program, 'a_delay'),
-          minusLocation =
-            gl.getAttribLocation(program, 'a_minus'),
-          headLocation =
-            gl.getAttribLocation(program, 'a_head'),
-          headPositionLocation =
-            gl.getAttribLocation(program, 'a_headPosition'),
-          colorLocation =
-            gl.getAttribLocation(program, 'a_color'),
-          resolutionLocation =
-            gl.getUniformLocation(program, 'u_resolution'),
-          matrixLocation =
-            gl.getUniformLocation(program, 'u_matrix'),
-          matrixHalfPiLocation =
-            gl.getUniformLocation(program, 'u_matrixHalfPi'),
-          matrixHalfPiMinusLocation =
-            gl.getUniformLocation(program, 'u_matrixHalfPiMinus'),
-          ratioLocation =
-            gl.getUniformLocation(program, 'u_ratio'),
-          nodeRatioLocation =
-            gl.getUniformLocation(program, 'u_nodeRatio'),
-          arrowHeadLocation =
-            gl.getUniformLocation(program, 'u_arrowHead'),
-          scaleLocation =
-            gl.getUniformLocation(program, 'u_scale');
+          gl.getAttribLocation(program, 'a_pos1'),
+        positionLocation2 =
+          gl.getAttribLocation(program, 'a_pos2'),
+        thicknessLocation =
+          gl.getAttribLocation(program, 'a_thickness'),
+        targetSizeLocation =
+          gl.getAttribLocation(program, 'a_tSize'),
+        delayLocation =
+          gl.getAttribLocation(program, 'a_delay'),
+        minusLocation =
+          gl.getAttribLocation(program, 'a_minus'),
+        headLocation =
+          gl.getAttribLocation(program, 'a_head'),
+        headPositionLocation =
+          gl.getAttribLocation(program, 'a_headPosition'),
+        colorLocation =
+          gl.getAttribLocation(program, 'a_color'),
+        resolutionLocation =
+          gl.getUniformLocation(program, 'u_resolution'),
+        matrixLocation =
+          gl.getUniformLocation(program, 'u_matrix'),
+        matrixHalfPiLocation =
+          gl.getUniformLocation(program, 'u_matrixHalfPi'),
+        matrixHalfPiMinusLocation =
+          gl.getUniformLocation(program, 'u_matrixHalfPiMinus'),
+        ratioLocation =
+          gl.getUniformLocation(program, 'u_ratio'),
+        nodeRatioLocation =
+          gl.getUniformLocation(program, 'u_nodeRatio'),
+        arrowHeadLocation =
+          gl.getUniformLocation(program, 'u_arrowHead'),
+        scaleLocation =
+          gl.getUniformLocation(program, 'u_scale');
 
       buffer = gl.createBuffer();
       gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
@@ -7657,8 +7650,8 @@ if (typeof exports !== 'undefined') {
     },
     initProgram: function(gl) {
       var vertexShader,
-          fragmentShader,
-          program;
+        fragmentShader,
+        program;
 
       vertexShader = sigma.utils.loadShader(
         gl,
@@ -7685,44 +7678,44 @@ if (typeof exports !== 'undefined') {
           'varying vec4 color;',
 
           'void main() {',
-            // Find the good point:
-            'vec2 pos = normalize(a_pos2 - a_pos1);',
+          // Find the good point:
+          'vec2 pos = normalize(a_pos2 - a_pos1);',
 
-            'mat2 matrix = (1.0 - a_head) *',
-              '(',
-                'a_minus * u_matrixHalfPiMinus +',
-                '(1.0 - a_minus) * u_matrixHalfPi',
-              ') + a_head * (',
-                'a_headPosition * u_matrixHalfPiMinus * 0.6 +',
-                '(a_headPosition * a_headPosition - 1.0) * mat2(1.0)',
-              ');',
+          'mat2 matrix = (1.0 - a_head) *',
+          '(',
+          'a_minus * u_matrixHalfPiMinus +',
+          '(1.0 - a_minus) * u_matrixHalfPi',
+          ') + a_head * (',
+          'a_headPosition * u_matrixHalfPiMinus * 0.6 +',
+          '(a_headPosition * a_headPosition - 1.0) * mat2(1.0)',
+          ');',
 
-            'pos = a_pos1 + (',
-              // Deal with body:
-              '(1.0 - a_head) * a_thickness * u_ratio * matrix * pos +',
-              // Deal with head:
-              'a_head * u_arrowHead * a_thickness * u_ratio * matrix * pos +',
-              // Deal with delay:
-              'a_delay * pos * (',
-                'a_tSize / u_nodeRatio +',
-                'u_arrowHead * a_thickness * u_ratio',
-              ')',
-            ');',
+          'pos = a_pos1 + (',
+          // Deal with body:
+          '(1.0 - a_head) * a_thickness * u_ratio * matrix * pos +',
+          // Deal with head:
+          'a_head * u_arrowHead * a_thickness * u_ratio * matrix * pos +',
+          // Deal with delay:
+          'a_delay * pos * (',
+          'a_tSize / u_nodeRatio +',
+          'u_arrowHead * a_thickness * u_ratio',
+          ')',
+          ');',
 
-            // Scale from [[-1 1] [-1 1]] to the container:
-            'gl_Position = vec4(',
-              '((u_matrix * vec3(pos, 1)).xy /',
-                'u_resolution * 2.0 - 1.0) * vec2(1, -1),',
-              '0,',
-              '1',
-            ');',
+          // Scale from [[-1 1] [-1 1]] to the container:
+          'gl_Position = vec4(',
+          '((u_matrix * vec3(pos, 1)).xy /',
+          'u_resolution * 2.0 - 1.0) * vec2(1, -1),',
+          '0,',
+          '1',
+          ');',
 
-            // Extract the color:
-            'float c = a_color;',
-            'color.b = mod(c, 256.0); c = floor(c / 256.0);',
-            'color.g = mod(c, 256.0); c = floor(c / 256.0);',
-            'color.r = mod(c, 256.0); c = floor(c / 256.0); color /= 255.0;',
-            'color.a = 1.0;',
+          // Extract the color:
+          'float c = a_color;',
+          'color.b = mod(c, 256.0); c = floor(c / 256.0);',
+          'color.g = mod(c, 256.0); c = floor(c / 256.0);',
+          'color.r = mod(c, 256.0); c = floor(c / 256.0); color /= 255.0;',
+          'color.a = 1.0;',
           '}'
         ].join('\n'),
         gl.VERTEX_SHADER
@@ -7736,7 +7729,7 @@ if (typeof exports !== 'undefined') {
           'varying vec4 color;',
 
           'void main(void) {',
-            'gl_FragColor = color;',
+          'gl_FragColor = color;',
           '}'
         ].join('\n'),
         gl.FRAGMENT_SHADER
@@ -7767,8 +7760,8 @@ if (typeof exports !== 'undefined') {
    */
   sigma.canvas.labels.def = function(node, context, settings) {
     var fontSize,
-        prefix = settings('prefix') || '',
-        size = node[prefix + 'size'];
+      prefix = settings('prefix') || '',
+      size = node[prefix + 'size'];
 
     if (size < settings('labelThreshold'))
       return;
@@ -7778,10 +7771,10 @@ if (typeof exports !== 'undefined') {
 
     fontSize = (settings('labelSize') === 'fixed') ?
       settings('defaultLabelSize') :
-      settings('labelSizeRatio') * size;
+    settings('labelSizeRatio') * size;
 
     context.font = (settings('fontStyle') ? settings('fontStyle') + ' ' : '') +
-      fontSize + 'px ' + settings('font');
+    fontSize + 'px ' + settings('font');
     context.fillStyle = (settings('labelColor') === 'node') ?
       (node.color || settings('defaultNodeColor')) :
       settings('defaultLabelColor');
@@ -7812,20 +7805,20 @@ if (typeof exports !== 'undefined') {
    */
   sigma.canvas.hovers.def = function(node, context, settings) {
     var x,
-        y,
-        w,
-        h,
-        e,
-        fontStyle = settings('hoverFontStyle') || settings('fontStyle'),
-        prefix = settings('prefix') || '',
-        size = node[prefix + 'size'],
-        fontSize = (settings('labelSize') === 'fixed') ?
-          settings('defaultLabelSize') :
-          settings('labelSizeRatio') * size;
+      y,
+      w,
+      h,
+      e,
+      fontStyle = settings('hoverFontStyle') || settings('fontStyle'),
+      prefix = settings('prefix') || '',
+      size = node[prefix + 'size'],
+      fontSize = (settings('labelSize') === 'fixed') ?
+        settings('defaultLabelSize') :
+      settings('labelSizeRatio') * size;
 
     // Label background:
     context.font = (fontStyle ? fontStyle + ' ' : '') +
-      fontSize + 'px ' + (settings('hoverFont') || settings('font'));
+    fontSize + 'px ' + (settings('hoverFont') || settings('font'));
 
     context.beginPath();
     context.fillStyle = settings('labelHoverBGColor') === 'node' ?
@@ -7948,10 +7941,10 @@ if (typeof exports !== 'undefined') {
    */
   sigma.canvas.edges.def = function(edge, source, target, context, settings) {
     var color = edge.color,
-        prefix = settings('prefix') || '',
-        edgeColor = settings('edgeColor'),
-        defaultNodeColor = settings('defaultNodeColor'),
-        defaultEdgeColor = settings('defaultEdgeColor');
+      prefix = settings('prefix') || '',
+      edgeColor = settings('edgeColor'),
+      defaultNodeColor = settings('defaultNodeColor'),
+      defaultEdgeColor = settings('defaultEdgeColor');
 
     if (!color)
       switch (edgeColor) {
@@ -7986,7 +7979,7 @@ if (typeof exports !== 'undefined') {
         target,
         context,
         settings
-    );
+      );
   };
 })();
 
@@ -8006,19 +7999,19 @@ if (typeof exports !== 'undefined') {
    */
   sigma.canvas.edges.curve = function(edge, source, target, context, settings) {
     var color = edge.color,
-        prefix = settings('prefix') || '',
-        edgeColor = settings('edgeColor'),
-        defaultNodeColor = settings('defaultNodeColor'),
-        defaultEdgeColor = settings('defaultEdgeColor'),
-        sSize = source[prefix + 'size'],
-        sX = source[prefix + 'x'],
-        sY = source[prefix + 'y'],
-        tX = target[prefix + 'x'],
-        tY = target[prefix + 'y'],
-        controlX,
-        controlY,
-        controlX2,
-        controlY2;
+      prefix = settings('prefix') || '',
+      edgeColor = settings('edgeColor'),
+      defaultNodeColor = settings('defaultNodeColor'),
+      defaultEdgeColor = settings('defaultEdgeColor'),
+      sSize = source[prefix + 'size'],
+      sX = source[prefix + 'x'],
+      sY = source[prefix + 'y'],
+      tX = target[prefix + 'x'],
+      tY = target[prefix + 'y'],
+      controlX,
+      controlY,
+      controlX2,
+      controlY2;
 
     if (source.id === target.id) {
       controlX = sX - sSize * 7;
@@ -8072,22 +8065,22 @@ if (typeof exports !== 'undefined') {
    */
   sigma.canvas.edges.arrow = function(edge, source, target, context, settings) {
     var color = edge.color,
-        prefix = settings('prefix') || '',
-        edgeColor = settings('edgeColor'),
-        defaultNodeColor = settings('defaultNodeColor'),
-        defaultEdgeColor = settings('defaultEdgeColor'),
-        thickness = edge[prefix + 'size'] || 1,
-        tSize = target[prefix + 'size'],
-        sX = source[prefix + 'x'],
-        sY = source[prefix + 'y'],
-        tX = target[prefix + 'x'],
-        tY = target[prefix + 'y'],
-        aSize = thickness * 2.5,
-        d = Math.sqrt(Math.pow(tX - sX, 2) + Math.pow(tY - sY, 2)),
-        aX = sX + (tX - sX) * (d - aSize - tSize) / d,
-        aY = sY + (tY - sY) * (d - aSize - tSize) / d,
-        vX = (tX - sX) * aSize / d,
-        vY = (tY - sY) * aSize / d;
+      prefix = settings('prefix') || '',
+      edgeColor = settings('edgeColor'),
+      defaultNodeColor = settings('defaultNodeColor'),
+      defaultEdgeColor = settings('defaultEdgeColor'),
+      thickness = edge[prefix + 'size'] || 1,
+      tSize = target[prefix + 'size'],
+      sX = source[prefix + 'x'],
+      sY = source[prefix + 'y'],
+      tX = target[prefix + 'x'],
+      tY = target[prefix + 'y'],
+      aSize = thickness * 2.5,
+      d = Math.sqrt(Math.pow(tX - sX, 2) + Math.pow(tY - sY, 2)),
+      aX = sX + (tX - sX) * (d - aSize - tSize) / d,
+      aY = sY + (tY - sY) * (d - aSize - tSize) / d,
+      vX = (tX - sX) * aSize / d,
+      vY = (tY - sY) * aSize / d;
 
     if (!color)
       switch (edgeColor) {
@@ -8128,7 +8121,7 @@ if (typeof exports !== 'undefined') {
         target,
         context,
         settings
-    );
+      );
   };
 })();
 
@@ -8148,19 +8141,19 @@ if (typeof exports !== 'undefined') {
    */
   edgesPackage.curvedArrow = function(edge, source, target, context, settings) {
     var color = edge.color,
-        prefix = settings('prefix') || '',
-        edgeColor = settings('edgeColor'),
-        defaultNodeColor = settings('defaultNodeColor'),
-        defaultEdgeColor = settings('defaultEdgeColor'),
-        tSize = target[prefix + 'size'],
-        sX = source[prefix + 'x'],
-        sY = source[prefix + 'y'],
-        tX = target[prefix + 'x'],
-        tY = target[prefix + 'y'],
-        controlX,
-        controlY,
-        controlX2,
-        controlY2;
+      prefix = settings('prefix') || '',
+      edgeColor = settings('edgeColor'),
+      defaultNodeColor = settings('defaultNodeColor'),
+      defaultEdgeColor = settings('defaultEdgeColor'),
+      tSize = target[prefix + 'size'],
+      sX = source[prefix + 'x'],
+      sY = source[prefix + 'y'],
+      tX = target[prefix + 'x'],
+      tY = target[prefix + 'y'],
+      controlX,
+      controlY,
+      controlX2,
+      controlY2;
 
     if (source.id === target.id) {
       controlX = sX - tSize * 7;
@@ -8173,11 +8166,11 @@ if (typeof exports !== 'undefined') {
     }
 
     var d = Math.sqrt(Math.pow(tX - controlX, 2) + Math.pow(tY - controlY, 2)),
-        aSize = (edge[prefix + 'size'] || 1) * 2.5,
-        aX = controlX + (tX - controlX) * (d - aSize - tSize) / d,
-        aY = controlY + (tY - controlY) * (d - aSize - tSize) / d,
-        vX = (tX - controlX) * aSize / d,
-        vY = (tY - controlY) * aSize / d;
+      aSize = (edge[prefix + 'size'] || 1) * 2.5,
+      aX = controlX + (tX - controlX) * (d - aSize - tSize) / d,
+      aY = controlY + (tY - controlY) * (d - aSize - tSize) / d,
+      vX = (tX - controlX) * aSize / d,
+      vY = (tY - controlY) * aSize / d;
 
     if (!color)
       switch (edgeColor) {
@@ -8237,30 +8230,30 @@ if (typeof exports !== 'undefined') {
    */
   sigma.middlewares.rescale = function(readPrefix, writePrefix, options) {
     var i,
-        l,
-        a,
-        b,
-        c,
-        d,
-        scale,
-        margin,
-        n = this.graph.nodes(),
-        e = this.graph.edges(),
-        settings = this.settings.embedObjects(options || {}),
-        bounds = settings('bounds') || sigma.utils.getBoundaries(
+      l,
+      a,
+      b,
+      c,
+      d,
+      scale,
+      margin,
+      n = this.graph.nodes(),
+      e = this.graph.edges(),
+      settings = this.settings.embedObjects(options || {}),
+      bounds = settings('bounds') || sigma.utils.getBoundaries(
           this.graph,
           readPrefix,
           true
         ),
-        minX = bounds.minX,
-        minY = bounds.minY,
-        maxX = bounds.maxX,
-        maxY = bounds.maxY,
-        sizeMax = bounds.sizeMax,
-        weightMax = bounds.weightMax,
-        w = settings('width') || 1,
-        h = settings('height') || 1,
-        rescaleSettings = settings('autoRescale');
+      minX = bounds.minX,
+      minY = bounds.minY,
+      maxX = bounds.maxX,
+      maxY = bounds.maxY,
+      sizeMax = bounds.sizeMax,
+      weightMax = bounds.weightMax,
+      w = settings('width') || 1,
+      h = settings('height') || 1,
+      rescaleSettings = settings('autoRescale');
 
     /**
      * What elements should we rescale?
@@ -8269,8 +8262,8 @@ if (typeof exports !== 'undefined') {
       rescaleSettings = ['nodePosition', 'nodeSize', 'edgeSize'];
 
     var np = ~rescaleSettings.indexOf('nodePosition'),
-        ns = ~rescaleSettings.indexOf('nodeSize'),
-        es = ~rescaleSettings.indexOf('edgeSize');
+      ns = ~rescaleSettings.indexOf('nodeSize'),
+      es = ~rescaleSettings.indexOf('edgeSize');
 
     /**
      * First, we compute the scaling ratio, without considering the sizes
@@ -8298,7 +8291,7 @@ if (typeof exports !== 'undefined') {
       (
         settings('rescaleIgnoreSize') ?
           0 :
-          (settings('maxNodeSize') || sizeMax) / scale
+        (settings('maxNodeSize') || sizeMax) / scale
       ) +
       (settings('sideMargin') || 0);
     maxX += margin;
@@ -8357,15 +8350,15 @@ if (typeof exports !== 'undefined') {
 
   sigma.utils.getBoundaries = function(graph, prefix, doEdges) {
     var i,
-        l,
-        e = graph.edges(),
-        n = graph.nodes(),
-        weightMax = -Infinity,
-        sizeMax = -Infinity,
-        minX = Infinity,
-        minY = Infinity,
-        maxX = -Infinity,
-        maxY = -Infinity;
+      l,
+      e = graph.edges(),
+      n = graph.nodes(),
+      weightMax = -Infinity,
+      sizeMax = -Infinity,
+      minX = Infinity,
+      minY = Infinity,
+      maxX = -Infinity,
+      maxY = -Infinity;
 
     if (doEdges)
       for (i = 0, l = e.length; i < l; i++)
@@ -8410,8 +8403,8 @@ if (typeof exports !== 'undefined') {
    */
   sigma.middlewares.copy = function(readPrefix, writePrefix) {
     var i,
-        l,
-        a;
+      l,
+      a;
 
     if (writePrefix + '' === readPrefix + '')
       return;
@@ -8492,13 +8485,13 @@ if (typeof exports !== 'undefined') {
       throw 'There must be at least one valid coordinate in the given val.';
 
     var fn,
-        id,
-        anim,
-        easing,
-        duration,
-        initialVal,
-        o = options || {},
-        start = sigma.utils.dateNow();
+      id,
+      anim,
+      easing,
+      duration,
+      initialVal,
+      o = options || {},
+      start = sigma.utils.dateNow();
 
     // Store initial values:
     initialVal = {
@@ -8515,7 +8508,7 @@ if (typeof exports !== 'undefined') {
 
     fn = function() {
       var coef,
-          t = o.duration ? (sigma.utils.dateNow() - start) / o.duration : 1;
+        t = o.duration ? (sigma.utils.dateNow() - start) / o.duration : 1;
 
       // If the animation is over:
       if (t >= 1) {
@@ -8534,22 +8527,22 @@ if (typeof exports !== 'undefined') {
         if (typeof o.onComplete === 'function')
           o.onComplete();
 
-      // Else, let's keep going:
+        // Else, let's keep going:
       } else {
         coef = easing(t);
         camera.isAnimated = true;
         camera.goTo({
           x: val.x !== undefined ?
-            initialVal.x + (val.x - initialVal.x) * coef :
+          initialVal.x + (val.x - initialVal.x) * coef :
             initialVal.x,
           y: val.y !== undefined ?
-            initialVal.y + (val.y - initialVal.y) * coef :
+          initialVal.y + (val.y - initialVal.y) * coef :
             initialVal.y,
           ratio: val.ratio !== undefined ?
-            initialVal.ratio + (val.ratio - initialVal.ratio) * coef :
+          initialVal.ratio + (val.ratio - initialVal.ratio) * coef :
             initialVal.ratio,
           angle: val.angle !== undefined ?
-            initialVal.angle + (val.angle - initialVal.angle) * coef :
+          initialVal.angle + (val.angle - initialVal.angle) * coef :
             initialVal.angle
         });
 
@@ -8613,11 +8606,11 @@ if (typeof exports !== 'undefined') {
    */
   sigma.misc.animation.killAll = function(filter) {
     var o,
-        id,
-        count = 0,
-        type = typeof filter === 'string' ? filter : null,
-        target = typeof filter === 'object' ? filter : null,
-        running = sigma.misc.animation.running;
+      id,
+      count = 0,
+      type = typeof filter === 'string' ? filter : null,
+      target = typeof filter === 'object' ? filter : null,
+      running = sigma.misc.animation.running;
 
     for (id in running)
       if (
@@ -8654,9 +8647,9 @@ if (typeof exports !== 'undefined') {
    */
   sigma.misc.animation.has = function(filter) {
     var id,
-        type = typeof filter === 'string' ? filter : null,
-        target = typeof filter === 'object' ? filter : null,
-        running = sigma.misc.animation.running;
+      type = typeof filter === 'string' ? filter : null,
+      target = typeof filter === 'object' ? filter : null,
+      running = sigma.misc.animation.running;
 
     for (id in running)
       if (
@@ -8687,11 +8680,11 @@ if (typeof exports !== 'undefined') {
    */
   sigma.misc.bindEvents = function(prefix) {
     var i,
-        l,
-        mX,
-        mY,
-        captor,
-        self = this;
+      l,
+      mX,
+      mY,
+      captor,
+      self = this;
 
     function getNodes(e) {
       if (e) {
@@ -8700,24 +8693,24 @@ if (typeof exports !== 'undefined') {
       }
 
       var i,
-          j,
-          l,
-          n,
-          x,
-          y,
-          s,
-          inserted,
-          selected = [],
-          modifiedX = mX + self.width / 2,
-          modifiedY = mY + self.height / 2,
-          point = self.camera.cameraPosition(
-            mX,
-            mY
-          ),
-          nodes = self.camera.quadtree.point(
-            point.x,
-            point.y
-          );
+        j,
+        l,
+        n,
+        x,
+        y,
+        s,
+        inserted,
+        selected = [],
+        modifiedX = mX + self.width / 2,
+        modifiedY = mY + self.height / 2,
+        point = self.camera.cameraPosition(
+          mX,
+          mY
+        ),
+        nodes = self.camera.quadtree.point(
+          point.x,
+          point.y
+        );
 
       if (nodes.length)
         for (i = 0, l = nodes.length; i < l; i++) {
@@ -8757,7 +8750,7 @@ if (typeof exports !== 'undefined') {
 
     function bindCaptor(captor) {
       var nodes,
-          over = {};
+        over = {};
 
       function onClick(e) {
         if (!self.settings('eventsEnabled'))
@@ -8825,9 +8818,9 @@ if (typeof exports !== 'undefined') {
           return;
 
         var k,
-            i,
-            l,
-            out = [];
+          i,
+          l,
+          out = [];
 
         for (k in over)
           out.push(over[k]);
@@ -8853,12 +8846,12 @@ if (typeof exports !== 'undefined') {
         nodes = getNodes(e);
 
         var i,
-            k,
-            n,
-            newOut = [],
-            newOvers = [],
-            currentOvers = {},
-            l = nodes.length;
+          k,
+          n,
+          newOut = [],
+          newOvers = [],
+          currentOvers = {},
+          l = nodes.length;
 
         // Check newly overred nodes:
         for (i = 0; i < l; i++) {
@@ -8971,8 +8964,8 @@ if (typeof exports !== 'undefined') {
       ) {
         if (! hoveredNodes[hoveredNodes.length - 1].hidden) {
           (
-            renderers[hoveredNodes[hoveredNodes.length - 1].type] ||
-            renderers.def
+          renderers[hoveredNodes[hoveredNodes.length - 1].type] ||
+          renderers.def
           )(
             hoveredNodes[hoveredNodes.length - 1],
             self.contexts.hover,
