@@ -44,7 +44,8 @@
 
       _isMouseDown,
       _isMoving,
-      _movingTimeoutId;
+      _movingTimeoutId,
+      _clicked = false;
 
     sigma.classes.dispatcher.extend(this);
 
@@ -308,8 +309,15 @@
         animation;
 
       if (_settings('mouseEnabled')) {
-        ratio = 1 / _settings('doubleClickZoomingRatio');
-
+        if (_settings('zoomByClick')) {
+          if (!_clicked) {
+            ratio = _settings('maxZoom');
+            _clicked = true;
+          } else {
+            ratio = _settings('minZoom');
+            _clicked = false;
+          }
+        }
         _self.dispatchEvent('doubleclick', {
           x: _startMouseX - e.target.width / 2,
           y: _startMouseY - e.target.height / 2,
@@ -341,6 +349,7 @@
           e.returnValue = false;
 
         e.stopPropagation();
+
         return false;
       }
     }
@@ -356,17 +365,15 @@
         ratio,
         animation;
 
-      if (_settings('mouseEnabled')) {
+      if (_settings('mouseEnabled') && _settings('wheelZoom')) {
         ratio = sigma.utils.getDelta(e) > 0 ?
         1 / _settings('zoomingRatio') :
           _settings('zoomingRatio');
-
         pos = _camera.cameraPosition(
           sigma.utils.getX(e) - e.target.width / 2,
           sigma.utils.getY(e) - e.target.height / 2,
           true
         );
-
         animation = {
           duration: _settings('mouseZoomDuration')
         };
