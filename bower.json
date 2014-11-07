@@ -1,6 +1,6 @@
 {
   "name": "bower-sigma.js",
-  "version": "1.3.2",
+  "version": "1.3.3",
   "main": [
     "./sigma.require.js",
     "./plugins/sigma.plugin.customedges.js",
