@@ -50,8 +50,8 @@
     sigma.classes.dispatcher.extend(this);
 
     sigma.utils.doubleClick(_target, 'click', _doubleClickHandler);
-    _target.addEventListener('DOMMouseScroll', _wheelHandler, false);
-    _target.addEventListener('mousewheel', _wheelHandler, false);
+    document.getElementsByClassName('sigma-mouse')[0].addEventListener('DOMMouseScroll', _wheelHandler, false);
+    document.getElementsByClassName('sigma-mouse')[0].addEventListener('mousewheel', _wheelHandler, false);
     _target.addEventListener('mousemove', _moveHandler, false);
     _target.addEventListener('mousedown', _downHandler, false);
     _target.addEventListener('click', _clickHandler, false);
@@ -66,8 +66,8 @@
      */
     this.kill = function() {
       sigma.utils.unbindDoubleClick(_target, 'click');
-      _target.removeEventListener('DOMMouseScroll', _wheelHandler);
-      _target.removeEventListener('mousewheel', _wheelHandler);
+      document.getElementsByClassName('sigma-mouse')[0].removeEventListener('DOMMouseScroll', _wheelHandler);
+      document.getElementsByClassName('sigma-mouse')[0].removeEventListener('mousewheel', _wheelHandler);
       _target.removeEventListener('mousemove', _moveHandler);
       _target.removeEventListener('mousedown', _downHandler);
       _target.removeEventListener('click', _clickHandler);
@@ -365,7 +365,11 @@
         ratio,
         animation;
 
-      if (_settings('mouseEnabled') && _settings('wheelZoom')) {
+      if (!e.target.wheel) {
+        return false;
+      }
+
+      if (_settings('mouseEnabled')) {
         ratio = sigma.utils.getDelta(e) > 0 ?
         1 / _settings('zoomingRatio') :
           _settings('zoomingRatio');
